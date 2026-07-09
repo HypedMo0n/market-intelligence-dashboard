@@ -1,0 +1,123 @@
+{
+  "audit_scope": "XAUUSD.var OOS forensic audit only; no strategy/code/parameter changes.",
+  "oos_period": {
+    "start": "2023-01-01",
+    "end": "2026-07-08"
+  },
+  "frozen_candidate": {
+    "candidate_id": "lower_risk",
+    "entry_window": 15,
+    "exit_window": 8,
+    "atr_period": 20,
+    "stop_atr_multiplier": 2.0,
+    "pyramid_atr_interval": 0.75,
+    "risk_per_unit_pct": 0.00125,
+    "max_total_lots": 10.0,
+    "max_account_leverage": 5.0,
+    "max_open_risk_pct": 0.01
+  },
+  "backtester_result": {
+    "closed_trades": 0,
+    "events": 0,
+    "entry_events": 0,
+    "pyramid_events": 0,
+    "exit_events": 0,
+    "open_units_at_end": 0,
+    "still_open_at_end": false
+  },
+  "breakout_audit": {
+    "potential_breakout_rows": 160,
+    "long_breakouts": 117,
+    "short_breakouts": 43,
+    "warmup_rejections": 1,
+    "sizing_rejections_below_min_lot": 159,
+    "would_enter_by_audit": 0,
+    "max_raw_lots_on_breakout": 0.008132304221341584,
+    "min_raw_lots_on_breakout": 0.0007090325836587639,
+    "min_required_lot": 0.01
+  },
+  "logic_verification": {
+    "atr": "Wilder ATR(20) calculated from OOS OHLC; first valid ATR occurs after warmup.",
+    "entry": "Close must be >= prior 15-day high for long or <= prior 15-day low for short.",
+    "sizing": "Every actionable breakout produced raw lots below 0.01, so volatility_adjusted_lots returned 0.0.",
+    "stop": "No stops could trigger because no position units were opened.",
+    "exit": "No channel exits could trigger because no position units were opened.",
+    "pyramiding": "No pyramids could trigger because no initial position unit was opened."
+  },
+  "data_integrity": {
+    "requested_symbol": "XAUUSD.var",
+    "actual_symbol": "XAUUSD.var",
+    "bars": 908,
+    "first_bar": "2023-01-03 00:00:00",
+    "last_bar": "2026-07-08 00:00:00",
+    "monotonic_index": true,
+    "duplicate_timestamps": 0,
+    "ohlc_missing_values": 0,
+    "high_low_violations": 0,
+    "non_positive_prices": 0,
+    "timestamps_all_midnight": true,
+    "timezone_naive_mt5_bars": "None",
+    "mt5_spread_price_valid_all_bars": false,
+    "mt5_spread_price_zero_or_negative_bars": 162,
+    "assumed_spread_used": 0.5,
+    "business_days_in_range": 917,
+    "missing_business_days_count": 9,
+    "missing_business_days": [
+      "2023-04-07",
+      "2023-12-25",
+      "2024-03-29",
+      "2024-12-25",
+      "2025-01-01",
+      "2025-04-18",
+      "2025-12-25",
+      "2026-01-01",
+      "2026-04-03"
+    ],
+    "calendar_gaps_gt_3_days": [
+      {
+        "from": "2023-04-06",
+        "to": "2023-04-10",
+        "calendar_days": 4
+      },
+      {
+        "from": "2023-12-22",
+        "to": "2023-12-26",
+        "calendar_days": 4
+      },
+      {
+        "from": "2024-03-28",
+        "to": "2024-04-01",
+        "calendar_days": 4
+      },
+      {
+        "from": "2025-04-17",
+        "to": "2025-04-21",
+        "calendar_days": 4
+      },
+      {
+        "from": "2026-04-02",
+        "to": "2026-04-06",
+        "calendar_days": 4
+      }
+    ]
+  },
+  "symbol_info_subset": {
+    "name": "XAUUSD.var",
+    "path": "Liquid Markets\\Var\\Commodities\\Metals\\XAUUSD.var",
+    "description": "Gold vs US Dollar",
+    "currency_base": "USD",
+    "currency_profit": "USD",
+    "currency_margin": "USD",
+    "trade_mode": 4,
+    "trade_calc_mode": 2,
+    "trade_contract_size": 100.0,
+    "point": 0.01,
+    "digits": 2,
+    "volume_min": 0.01,
+    "volume_step": 0.01,
+    "volume_max": 20.0,
+    "start_time": 0,
+    "expiration_time": 0
+  },
+  "conclusion": "Zero closed XAUUSD.var OOS trades is explained by volatility-adjusted sizing at 0.125% risk producing less than the 0.01 minimum lot on every breakout signal; no evidence of a software/data issue suppressing valid-sized XAU entries was found."
+}

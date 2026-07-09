@@ -1,0 +1,157 @@
+{
+  "phase": "Phase 1 final out-of-sample validation",
+  "oos_unlock": "This run loaded the locked out-of-sample period for final validation.",
+  "out_of_sample_period": {
+    "start": "2023-01-01",
+    "end": "2026-07-08"
+  },
+  "frozen_candidate": {
+    "candidate_id": "lower_risk",
+    "entry_window": 15,
+    "exit_window": 8,
+    "atr_period": 20,
+    "stop_atr_multiplier": 2.0,
+    "pyramid_atr_interval": 0.75,
+    "risk_per_unit_pct": 0.00125,
+    "max_total_lots": 10.0,
+    "max_account_leverage": 5.0,
+    "max_open_risk_pct": 0.01,
+    "symbol_drawdown_pause_pct": null,
+    "portfolio_drawdown_pause_pct": null
+  },
+  "combined_portfolio_metrics": {
+    "expectancy": 3.466364072972933,
+    "profit_factor": 1.2687543463324424,
+    "win_rate": 0.2872340425531915,
+    "max_drawdown_pct": 0.04504527777866086,
+    "net_profit": 325.83822285945644,
+    "trade_count": 94,
+    "max_exposure_pct": 0.31562777700795164,
+    "drawdown_gate_passed": true,
+    "candidate_id": "lower_risk"
+  },
+  "per_symbol_metrics": [
+    {
+      "candidate_id": "lower_risk",
+      "symbol": "XAUUSD.var",
+      "expectancy": 0.0,
+      "profit_factor": 0.0,
+      "win_rate": 0.0,
+      "max_drawdown_pct": 0.0,
+      "net_profit": 0.0,
+      "trade_count": 0,
+      "max_exposure_pct": 0.0,
+      "positive_expectancy": false,
+      "drawdown_gate_passed": true
+    },
+    {
+      "candidate_id": "lower_risk",
+      "symbol": "XAGUSD.var",
+      "expectancy": 3.466364072972933,
+      "profit_factor": 1.2687543463324424,
+      "win_rate": 0.2872340425531915,
+      "max_drawdown_pct": 0.08928478614054293,
+      "net_profit": 325.83822285945644,
+      "trade_count": 94,
+      "max_exposure_pct": 0.31562777700795164,
+      "positive_expectancy": true,
+      "drawdown_gate_passed": true
+    }
+  ],
+  "in_sample_vs_out_of_sample": {
+    "in_sample_expectancy": 14.326092378146749,
+    "out_of_sample_expectancy": 3.466364072972933,
+    "expectancy_retention": 0.2419615887902957,
+    "in_sample_profit_factor": 2.221337151281326,
+    "out_of_sample_profit_factor": 1.2687543463324424,
+    "profit_factor_retention": 0.5711669413175715,
+    "in_sample_max_drawdown_pct": 0.0486840230533998,
+    "out_of_sample_max_drawdown_pct": 0.04504527777866086,
+    "drawdown_expansion_ratio": 0.925257917351084,
+    "drawdown_expansion_pct_points": -0.0036387452747389387,
+    "in_sample_trades_per_year": 15.634562841530055,
+    "out_of_sample_trades_per_year": 26.73948598130841,
+    "trade_frequency_change_ratio": 1.7102803738317756,
+    "out_of_sample_trade_count": 94,
+    "symbols_positive_expectancy": false,
+    "per_symbol_expectancy_retention": {
+      "XAUUSD.var": 0.0,
+      "XAGUSD.var": 1.0329192552426818
+    },
+    "edge_generalized": false
+  },
+  "oos_regime_summary": {
+    "worst_month": "2025-04",
+    "worst_month_return": -0.0061826630872005555,
+    "best_month": "2026-01",
+    "best_month_return": 0.03194145234486571,
+    "worst_year": "2023",
+    "worst_year_return": -0.019776514650673583,
+    "best_year": "2026",
+    "best_year_return": 0.026183616536750363,
+    "worst_rolling_expectancy_time": "2025-04-09 00:00:00",
+    "worst_rolling_expectancy": -16.671492726744297,
+    "worst_rolling_profit_factor_time": "2025-04-09 00:00:00",
+    "worst_rolling_profit_factor": 0.03280074541080369,
+    "degraded_rolling_windows": 44
+  },
+  "final_phase_1_verdict": {
+    "classification": "Conditional Pass",
+    "reasons": [
+      "Not all symbols have positive OOS expectancy.",
+      "OOS portfolio passed core gates, but one or more confirmation checks failed."
+    ],
+    "no_oos_tuning_policy": "No parameter tuning, filtering, or reselection is allowed from this OOS result."
+  },
+  "artifacts": {
+    "combined_metrics_csv": "outputs\\oos-validation\\combined-metrics.csv",
+    "per_symbol_metrics_csv": "outputs\\oos-validation\\per-symbol-metrics.csv",
+    "trades_csv": "outputs\\oos-validation\\trades.csv",
+    "equity_csv": "outputs\\oos-validation\\equity.csv",
+    "monthly_returns_csv": "outputs\\oos-validation\\monthly-returns.csv",
+    "annual_returns_csv": "outputs\\oos-validation\\annual-returns.csv",
+    "rolling_diagnostics_csv": "outputs\\oos-validation\\rolling-diagnostics.csv",
+    "degraded_periods_csv": "outputs\\oos-validation\\degraded-rolling-periods.csv",
+    "regime_summary_csv": "outputs\\oos-validation\\regime-summary.csv",
+    "is_oos_comparison_csv": "outputs\\oos-validation\\in-sample-vs-oos.csv",
+    "verdict_json": "outputs\\oos-validation\\phase1-verdict.json",
+    "equity_curve_chart": "outputs\\oos-validation\\equity-curve.svg",
+    "underwater_drawdown_chart": "outputs\\oos-validation\\underwater-drawdown.svg",
+    "rolling_expectancy_chart": "outputs\\oos-validation\\rolling-expectancy.svg",
+    "rolling_profit_factor_chart": "outputs\\oos-validation\\rolling-profit-factor.svg",
+    "monthly_returns_chart": "outputs\\oos-validation\\monthly-returns.svg",
+    "annual_returns_chart": "outputs\\oos-validation\\annual-returns.svg",
+    "trade_return_histogram": "outputs\\oos-validation\\trade-return-histogram.svg",
+    "markdown_report": "outputs\\oos-validation\\oos-validation-report.md"
+  },
+  "coverage": [
+    {
+      "requested_symbol": "XAUUSD.var",
+      "actual_symbol": "XAUUSD.var",
+      "bars": 908,
+      "first_bar": "2023-01-03 00:00:00",
+      "last_bar": "2026-07-08 00:00:00",
+      "mt5_historical_spread_valid": false,
+      "mt5_historical_spread_reason": "MT5 spread_price contains zero or negative values",
+      "mt5_average_spread_price_raw": 0.2655176211453744,
+      "mt5_average_spread_raw": 26.551762114537446,
+      "spread_source_used": "configured_conservative_assumption",
+      "spread_used": "0.5 price units per spread model input",
+      "assumed_spread_price": 0.5
+    },
+    {
+      "requested_symbol": "XAGUSD.var",
+      "actual_symbol": "XAGUSD.var",
+      "bars": 907,
+      "first_bar": "2023-01-03 00:00:00",
+      "last_bar": "2026-07-08 00:00:00",
+      "mt5_historical_spread_valid": false,
+      "mt5_historical_spread_reason": "MT5 spread_price contains zero or negative values",
+      "mt5_average_spread_price_raw": 0.017853362734288867,
+      "mt5_average_spread_raw": 17.853362734288865,
+      "spread_source_used": "configured_conservative_assumption",
+      "spread_used": "0.05 price units per spread model input",
+      "assumed_spread_price": 0.05
+    }
+  ]
+}

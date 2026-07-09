@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520"><style>text{font-family:Arial,sans-serif;fill:#e9ecef}.title{font-size:20px;font-weight:700}.axis{font-size:12px;fill:#adb5bd}.cell{font-size:11px;fill:#fff}</style><rect width="100%" height="100%" fill="#0b0f14"/><text x="24" y="28" class="title">OOS Annual Returns</text>
+<text x="70" y="35" class="axis">Return</text>
+<rect x="70.00" y="286.49" width="208.00" height="287.01" fill="#c92a2a" opacity="0.82"/>
+<rect x="280.00" y="286.49" width="208.00" height="118.83" fill="#c92a2a" opacity="0.82"/>
+<rect x="490.00" y="24.20" width="208.00" height="262.29" fill="#2f9e44" opacity="0.82"/>
+<rect x="700.00" y="-93.51" width="208.00" height="380.00" fill="#2f9e44" opacity="0.82"/>
+<line x1="70" x2="910" y1="286.49" y2="286.49" stroke="#444"/>
+</svg>

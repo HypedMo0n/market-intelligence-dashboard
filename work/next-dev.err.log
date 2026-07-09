@@ -1,0 +1,190 @@
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\server\\app-paths-manifest.json',
+  page: '/api/mt5-latest'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\app-paths-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\server\\app-paths-manifest.json',
+  page: '/api/mt5-latest'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json',
+  page: '/'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\routes-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\routes-manifest.json'
+}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\cache\webpack\client-development-fallback\0.pack.gz'
+ ⨯ Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\vendor-chunks\next.js'
+    at <unknown> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\app\page.js:346:47)
+    at Object.<anonymous> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\app\page.js:349:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\server\\vendor-chunks\\next.js',
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\webpack-runtime.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\pages\_document.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\require.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\load-components.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\utils.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\swc\options.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\swc\index.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\analysis\parse-module.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\analysis\get-page-static-info.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+Error: ENOENT: no such file or directory, open 'C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\vendor-chunks\next.js'
+    at <unknown> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\app\page.js:346:47)
+    at Object.<anonymous> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\app\page.js:349:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\cheik\\Documents\\Codex\\2026-07-08\\chrome-plugin-chrome-openai-bundled-file\\.next\\server\\vendor-chunks\\next.js',
+  page: '/'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\webpack-runtime.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\pages\_document.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\require.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\load-components.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\utils.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\swc\options.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\swc\index.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\analysis\parse-module.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\build\analysis\get-page-static-info.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\lib\router-server.js
+- C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (C:\Users\cheik\Documents\Codex\2026-07-08\chrome-plugin-chrome-openai-bundled-file\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]

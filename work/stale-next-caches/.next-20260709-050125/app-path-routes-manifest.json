@@ -1,0 +1,7 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/api/macro-scan/route": "/api/macro-scan",
+  "/api/mt5-latest/route": "/api/mt5-latest",
+  "/api/mt5-ingest/route": "/api/mt5-ingest",
+  "/page": "/"
+}

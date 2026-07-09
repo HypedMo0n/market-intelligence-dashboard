@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "functions": {
+    "/api/macro-scan": {},
+    "/api/mt5-ingest": {},
+    "/api/mt5-latest": {}
+  }
+}

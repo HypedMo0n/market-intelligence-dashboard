@@ -1,0 +1,40 @@
+{
+  "XAUUSD.var": {
+    "requested_symbol": "XAUUSD.var",
+    "actual_symbol": "XAUUSD.var",
+    "bars": 2451,
+    "first_bar": "2013-12-24 00:00:00",
+    "last_bar": "2022-12-30 00:00:00",
+    "volume_min": 0.01,
+    "volume_step": 0.01,
+    "volume_max": 20.0,
+    "trade_contract_size": 100.0,
+    "point": 0.01,
+    "digits": 2,
+    "trade_mode": 4,
+    "trade_calc_mode": 2,
+    "path": "Liquid Markets\\Var\\Commodities\\Metals\\XAUUSD.var",
+    "description": "Gold vs US Dollar",
+    "smaller_than_001_lot_step_available": false,
+    "smaller_than_001_min_lot_available": false
+  },
+  "XAGUSD.var": {
+    "requested_symbol": "XAGUSD.var",
+    "actual_symbol": "XAGUSD.var",
+    "bars": 756,
+    "first_bar": "2013-12-24 00:00:00",
+    "last_bar": "2022-12-30 00:00:00",
+    "volume_min": 0.01,
+    "volume_step": 0.01,
+    "volume_max": 25.0,
+    "trade_contract_size": 5000.0,
+    "point": 0.001,
+    "digits": 3,
+    "trade_mode": 4,
+    "trade_calc_mode": 2,
+    "path": "Liquid Markets\\Var\\Commodities\\Metals\\XAGUSD.var",
+    "description": "Silver vs US Dollar",
+    "smaller_than_001_lot_step_available": false,
+    "smaller_than_001_min_lot_available": false
+  }
+}

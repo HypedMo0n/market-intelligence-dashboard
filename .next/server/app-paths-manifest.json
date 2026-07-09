@@ -1,0 +1,5 @@
+{
+  "/api/mt5-latest/route": "app/api/mt5-latest/route.js",
+  "/api/macro-scan/route": "app/api/macro-scan/route.js",
+  "/page": "app/page.js"
+}

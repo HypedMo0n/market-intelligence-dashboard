@@ -1,0 +1,14 @@
+{
+  "instrument": "XAUUSD",
+  "timestamp": "2026-07-09T12:30:00Z",
+  "price": 2365.4,
+  "trend": "up",
+  "structure": "higher highs and higher lows",
+  "volatility": "normal",
+  "support": 2352.1,
+  "resistance": 2378.6,
+  "recent_high": 2378.6,
+  "recent_low": 2346.8,
+  "liquidity_zones": "Stops may cluster just below 2346.80 and just above 2378.60.",
+  "notes": "XAUUSD is holding above recent support with a clear upward H1 structure."
+}

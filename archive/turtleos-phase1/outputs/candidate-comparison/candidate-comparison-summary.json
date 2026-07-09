@@ -1,0 +1,583 @@
+{
+  "phase": "Phase 1 focused candidate comparison, in-sample only",
+  "out_of_sample_guard": "No data on or after 2023-01-01 was loaded or evaluated.",
+  "in_sample_period": {
+    "start": "2013-12-24",
+    "end": "2022-12-31"
+  },
+  "fixed_risk_controls": {
+    "exit_window": 8,
+    "atr_period": 20,
+    "max_total_lots": 10.0,
+    "max_account_leverage": 5.0,
+    "max_open_risk_pct": 0.01,
+    "symbol_drawdown_pause_pct": null,
+    "portfolio_drawdown_pause_pct": null
+  },
+  "candidate_policy": "Only the four user-specified candidates were evaluated; strategy rules were not optimized further.",
+  "ranking_policy": [
+    "Statistical robustness",
+    "Drawdown control",
+    "Stability across symbols",
+    "Stability across regimes",
+    "Simplicity / closeness to original Turtle logic"
+  ],
+  "recommendation": {
+    "action": "Recommend frozen candidate for final out-of-sample validation",
+    "frozen_candidate": "lower_risk",
+    "reason": "lower_risk ranks highest across statistical robustness, drawdown control, symbol stability, regime stability, and simplicity without unlocking the out-of-sample period.",
+    "top_candidate_snapshot": {
+      "candidate_id": "lower_risk",
+      "expectancy": 14.326092378146747,
+      "profit_factor": 2.221337151281326,
+      "max_drawdown_pct": 0.04868402305339984,
+      "net_profit": 2019.9790253186948,
+      "trade_count": 141,
+      "prob_expectancy_positive": 0.9998,
+      "mc_prob_drawdown_gt_25pct": 0.0,
+      "worst_rolling_expectancy": -15.06613348034099
+    }
+  },
+  "candidates": [
+    {
+      "definition": {
+        "candidate_id": "base",
+        "label": "Base",
+        "entry_window": 15,
+        "stop_atr_multiplier": 2.0,
+        "pyramid_atr_interval": 0.75,
+        "risk_per_unit_pct": 0.0025
+      },
+      "combined": {
+        "expectancy": 6.228806307996658,
+        "profit_factor": 1.2870249537219414,
+        "win_rate": 0.3137254901960784,
+        "max_drawdown_pct": 0.08126232884133097,
+        "net_profit": 1270.6764868313185,
+        "trade_count": 204,
+        "max_exposure_pct": 0.7114880333825541,
+        "drawdown_gate_passed": true
+      },
+      "per_symbol": [
+        {
+          "candidate_id": "base",
+          "label": "Base",
+          "symbol": "XAUUSD.var",
+          "expectancy": 7.196585373840562,
+          "profit_factor": 1.365755462459326,
+          "win_rate": 0.3081761006289308,
+          "max_drawdown_pct": 0.07792302073418378,
+          "net_profit": 1144.2570744406512,
+          "trade_count": 159,
+          "max_exposure_pct": 0.591277845575999,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        },
+        {
+          "candidate_id": "base",
+          "label": "Base",
+          "symbol": "XAGUSD.var",
+          "expectancy": 2.809320275348191,
+          "profit_factor": 1.0973517709382026,
+          "win_rate": 0.3333333333333333,
+          "max_drawdown_pct": 0.11549914463738546,
+          "net_profit": 126.4194123906691,
+          "trade_count": 45,
+          "max_exposure_pct": 0.24287820843683655,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        }
+      ],
+      "bootstrap": {
+        "expectancy_ci": [
+          -3.824543469245589,
+          16.956663726215528
+        ],
+        "profit_factor_ci": [
+          0.8385387066774003,
+          1.8553655665372395
+        ],
+        "win_rate_ci": [
+          0.25,
+          0.37745098039215685
+        ],
+        "expectancy_median": 6.117641025419086,
+        "profit_factor_median": 1.281672244844851,
+        "win_rate_median": 0.3137254901960784,
+        "prob_expectancy_positive": 0.8802,
+        "prob_profit_factor_gt_1": 0.8802
+      },
+      "monte_carlo": {
+        "median_return": 0.06353382434156592,
+        "mean_return": 0.06353382434156599,
+        "worst_5pct_drawdown": 0.05103934177634694,
+        "worst_drawdown_observed": 0.08227213951132964,
+        "best_drawdown_observed": 0.014679781377793605,
+        "return_95pct_ci": [
+          0.06353382434156574,
+          0.06353382434156629
+        ],
+        "prob_drawdown_gt_10pct": 0.0,
+        "prob_drawdown_gt_15pct": 0.0,
+        "prob_drawdown_gt_20pct": 0.0,
+        "prob_drawdown_gt_25pct": 0.0,
+        "note": "Trade-order randomization keeps total return fixed; drawdown distribution changes with order."
+      },
+      "regimes": {
+        "candidate_id": "base",
+        "worst_month": "2022-01",
+        "worst_month_return": -0.013990686193143254,
+        "best_month": "2019-09",
+        "best_month_return": 0.03543794639983215,
+        "worst_year": "2021",
+        "worst_year_return": -0.02947838404360226,
+        "best_year": "2020",
+        "best_year_return": 0.047944375003092114,
+        "worst_rolling_expectancy_time": "2022-01-27 00:00:00",
+        "worst_rolling_expectancy": -30.921592679746784,
+        "best_rolling_expectancy_time": "2020-09-21 00:00:00",
+        "best_rolling_expectancy": 66.37756149184807,
+        "worst_rolling_profit_factor_time": "2022-01-27 00:00:00",
+        "worst_rolling_profit_factor": 0.07595743146643705,
+        "best_rolling_profit_factor_time": "2020-09-21 00:00:00",
+        "best_rolling_profit_factor": 4.404481327769835,
+        "degraded_rolling_windows": 75
+      },
+      "artifacts": {
+        "candidate_id": "base",
+        "trades_csv": "outputs\\candidate-comparison\\base\\trades.csv",
+        "equity_csv": "outputs\\candidate-comparison\\base\\equity.csv",
+        "bootstrap_csv": "outputs\\candidate-comparison\\base\\bootstrap-simulations.csv",
+        "monte_carlo_csv": "outputs\\candidate-comparison\\base\\monte-carlo-simulations.csv",
+        "monthly_returns_csv": "outputs\\candidate-comparison\\base\\monthly-returns.csv",
+        "annual_returns_csv": "outputs\\candidate-comparison\\base\\annual-returns.csv",
+        "rolling_diagnostics_csv": "outputs\\candidate-comparison\\base\\rolling-diagnostics.csv",
+        "monte_carlo_drawdown_histogram": "outputs\\candidate-comparison\\base\\monte-carlo-drawdown-histogram.svg",
+        "bootstrap_expectancy_histogram": "outputs\\candidate-comparison\\base\\bootstrap-expectancy-histogram.svg",
+        "trade_return_histogram": "outputs\\candidate-comparison\\base\\trade-return-histogram.svg",
+        "equity_curve_chart": "outputs\\candidate-comparison\\base\\equity-curve.svg",
+        "rolling_expectancy_chart": "outputs\\candidate-comparison\\base\\rolling-expectancy.svg",
+        "rolling_profit_factor_chart": "outputs\\candidate-comparison\\base\\rolling-profit-factor.svg",
+        "rolling_win_rate_chart": "outputs\\candidate-comparison\\base\\rolling-win-rate.svg",
+        "monthly_returns_chart": "outputs\\candidate-comparison\\base\\monthly-returns.svg",
+        "annual_returns_chart": "outputs\\candidate-comparison\\base\\annual-returns.svg",
+        "underwater_drawdown_chart": "outputs\\candidate-comparison\\base\\underwater-drawdown.svg"
+      }
+    },
+    {
+      "definition": {
+        "candidate_id": "lower_risk",
+        "label": "Lower-risk",
+        "entry_window": 15,
+        "stop_atr_multiplier": 2.0,
+        "pyramid_atr_interval": 0.75,
+        "risk_per_unit_pct": 0.00125
+      },
+      "combined": {
+        "expectancy": 14.326092378146747,
+        "profit_factor": 2.221337151281326,
+        "win_rate": 0.4397163120567376,
+        "max_drawdown_pct": 0.04868402305339984,
+        "net_profit": 2019.9790253186948,
+        "trade_count": 141,
+        "max_exposure_pct": 0.5948245413762165,
+        "drawdown_gate_passed": true
+      },
+      "per_symbol": [
+        {
+          "candidate_id": "lower_risk",
+          "label": "Lower-risk",
+          "symbol": "XAUUSD.var",
+          "expectancy": 25.141784220794943,
+          "profit_factor": 3.673685408402931,
+          "win_rate": 0.5492957746478874,
+          "max_drawdown_pct": 0.04799653608213347,
+          "net_profit": 1785.0666796764453,
+          "trade_count": 71,
+          "max_exposure_pct": 0.5422794309939445,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        },
+        {
+          "candidate_id": "lower_risk",
+          "label": "Lower-risk",
+          "symbol": "XAGUSD.var",
+          "expectancy": 3.3558906520321563,
+          "profit_factor": 1.2381837912378826,
+          "win_rate": 0.32857142857142857,
+          "max_drawdown_pct": 0.10004908301077695,
+          "net_profit": 234.91234564225124,
+          "trade_count": 70,
+          "max_exposure_pct": 0.22417871404537076,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        }
+      ],
+      "bootstrap": {
+        "expectancy_ci": [
+          5.8294977800794525,
+          23.464032764509156
+        ],
+        "profit_factor_ci": [
+          1.4387466034400183,
+          3.2904747177311404
+        ],
+        "win_rate_ci": [
+          0.3546099290780142,
+          0.524822695035461
+        ],
+        "expectancy_median": 14.14738679606409,
+        "profit_factor_median": 2.2081695810976343,
+        "win_rate_median": 0.4397163120567376,
+        "prob_expectancy_positive": 0.9998,
+        "prob_profit_factor_gt_1": 0.9998
+      },
+      "monte_carlo": {
+        "median_return": 0.10099895126593474,
+        "mean_return": 0.10099895126593475,
+        "worst_5pct_drawdown": 0.015304320236379771,
+        "worst_drawdown_observed": 0.025963200775940113,
+        "best_drawdown_observed": 0.004705237541857053,
+        "return_95pct_ci": [
+          0.10099895126593456,
+          0.10099895126593474
+        ],
+        "prob_drawdown_gt_10pct": 0.0,
+        "prob_drawdown_gt_15pct": 0.0,
+        "prob_drawdown_gt_20pct": 0.0,
+        "prob_drawdown_gt_25pct": 0.0,
+        "note": "Trade-order randomization keeps total return fixed; drawdown distribution changes with order."
+      },
+      "regimes": {
+        "candidate_id": "lower_risk",
+        "worst_month": "2022-01",
+        "worst_month_return": -0.006468176137872196,
+        "best_month": "2019-09",
+        "best_month_return": 0.03609959925722933,
+        "worst_year": "2021",
+        "worst_year_return": -0.020314006081289256,
+        "best_year": "2019",
+        "best_year_return": 0.04252386232774018,
+        "worst_rolling_expectancy_time": "2021-11-02 00:00:00",
+        "worst_rolling_expectancy": -15.06613348034099,
+        "best_rolling_expectancy_time": "2020-09-21 00:00:00",
+        "best_rolling_expectancy": 53.1721259030603,
+        "worst_rolling_profit_factor_time": "2021-11-02 00:00:00",
+        "worst_rolling_profit_factor": 0.10181874775935044,
+        "best_rolling_profit_factor_time": "2020-09-21 00:00:00",
+        "best_rolling_profit_factor": 8.098627721610526,
+        "degraded_rolling_windows": 35
+      },
+      "artifacts": {
+        "candidate_id": "lower_risk",
+        "trades_csv": "outputs\\candidate-comparison\\lower_risk\\trades.csv",
+        "equity_csv": "outputs\\candidate-comparison\\lower_risk\\equity.csv",
+        "bootstrap_csv": "outputs\\candidate-comparison\\lower_risk\\bootstrap-simulations.csv",
+        "monte_carlo_csv": "outputs\\candidate-comparison\\lower_risk\\monte-carlo-simulations.csv",
+        "monthly_returns_csv": "outputs\\candidate-comparison\\lower_risk\\monthly-returns.csv",
+        "annual_returns_csv": "outputs\\candidate-comparison\\lower_risk\\annual-returns.csv",
+        "rolling_diagnostics_csv": "outputs\\candidate-comparison\\lower_risk\\rolling-diagnostics.csv",
+        "monte_carlo_drawdown_histogram": "outputs\\candidate-comparison\\lower_risk\\monte-carlo-drawdown-histogram.svg",
+        "bootstrap_expectancy_histogram": "outputs\\candidate-comparison\\lower_risk\\bootstrap-expectancy-histogram.svg",
+        "trade_return_histogram": "outputs\\candidate-comparison\\lower_risk\\trade-return-histogram.svg",
+        "equity_curve_chart": "outputs\\candidate-comparison\\lower_risk\\equity-curve.svg",
+        "rolling_expectancy_chart": "outputs\\candidate-comparison\\lower_risk\\rolling-expectancy.svg",
+        "rolling_profit_factor_chart": "outputs\\candidate-comparison\\lower_risk\\rolling-profit-factor.svg",
+        "rolling_win_rate_chart": "outputs\\candidate-comparison\\lower_risk\\rolling-win-rate.svg",
+        "monthly_returns_chart": "outputs\\candidate-comparison\\lower_risk\\monthly-returns.svg",
+        "annual_returns_chart": "outputs\\candidate-comparison\\lower_risk\\annual-returns.svg",
+        "underwater_drawdown_chart": "outputs\\candidate-comparison\\lower_risk\\underwater-drawdown.svg"
+      }
+    },
+    {
+      "definition": {
+        "candidate_id": "wider_pyramid",
+        "label": "Wider pyramid",
+        "entry_window": 15,
+        "stop_atr_multiplier": 2.0,
+        "pyramid_atr_interval": 1.0,
+        "risk_per_unit_pct": 0.0025
+      },
+      "combined": {
+        "expectancy": 9.386193048877567,
+        "profit_factor": 1.44136443645014,
+        "win_rate": 0.34594594594594597,
+        "max_drawdown_pct": 0.07406272128430563,
+        "net_profit": 1736.4457140423547,
+        "trade_count": 185,
+        "max_exposure_pct": 0.7018032740810309,
+        "drawdown_gate_passed": true
+      },
+      "per_symbol": [
+        {
+          "candidate_id": "wider_pyramid",
+          "label": "Wider pyramid",
+          "symbol": "XAUUSD.var",
+          "expectancy": 10.436294134782957,
+          "profit_factor": 1.5390966638755519,
+          "win_rate": 0.3472222222222222,
+          "max_drawdown_pct": 0.07187973569214158,
+          "net_profit": 1502.826355408748,
+          "trade_count": 144,
+          "max_exposure_pct": 0.5816030613227706,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        },
+        {
+          "candidate_id": "wider_pyramid",
+          "label": "Wider pyramid",
+          "symbol": "XAGUSD.var",
+          "expectancy": 5.698033137404991,
+          "profit_factor": 1.2037510298607241,
+          "win_rate": 0.34146341463414637,
+          "max_drawdown_pct": 0.10647542466377749,
+          "net_profit": 233.61935863360486,
+          "trade_count": 41,
+          "max_exposure_pct": 0.23497048759586192,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        }
+      ],
+      "bootstrap": {
+        "expectancy_ci": [
+          -1.3133714356391004,
+          21.068835258260115
+        ],
+        "profit_factor_ci": [
+          0.9447808745224591,
+          2.099309889711387
+        ],
+        "win_rate_ci": [
+          0.2756756756756757,
+          0.41621621621621624
+        ],
+        "expectancy_median": 9.171276881503335,
+        "profit_factor_median": 1.431273412666282,
+        "win_rate_median": 0.34594594594594597,
+        "prob_expectancy_positive": 0.9517,
+        "prob_profit_factor_gt_1": 0.9517
+      },
+      "monte_carlo": {
+        "median_return": 0.08682228570211774,
+        "mean_return": 0.08682228570211764,
+        "worst_5pct_drawdown": 0.04220935188558243,
+        "worst_drawdown_observed": 0.0835735313290615,
+        "best_drawdown_observed": 0.011837312013144986,
+        "return_95pct_ci": [
+          0.08682228570211736,
+          0.08682228570211792
+        ],
+        "prob_drawdown_gt_10pct": 0.0,
+        "prob_drawdown_gt_15pct": 0.0,
+        "prob_drawdown_gt_20pct": 0.0,
+        "prob_drawdown_gt_25pct": 0.0,
+        "note": "Trade-order randomization keeps total return fixed; drawdown distribution changes with order."
+      },
+      "regimes": {
+        "candidate_id": "wider_pyramid",
+        "worst_month": "2022-01",
+        "worst_month_return": -0.013990686193143254,
+        "best_month": "2020-09",
+        "best_month_return": 0.035356693112077474,
+        "worst_year": "2021",
+        "worst_year_return": -0.02867094734982595,
+        "best_year": "2020",
+        "best_year_return": 0.052315006123207525,
+        "worst_rolling_expectancy_time": "2022-01-27 00:00:00",
+        "worst_rolling_expectancy": -30.254800750809125,
+        "best_rolling_expectancy_time": "2020-09-21 00:00:00",
+        "best_rolling_expectancy": 64.89139482407151,
+        "worst_rolling_profit_factor_time": "2022-01-27 00:00:00",
+        "worst_rolling_profit_factor": 0.07782836721894164,
+        "best_rolling_profit_factor_time": "2020-09-21 00:00:00",
+        "best_rolling_profit_factor": 4.33222156848687,
+        "degraded_rolling_windows": 58
+      },
+      "artifacts": {
+        "candidate_id": "wider_pyramid",
+        "trades_csv": "outputs\\candidate-comparison\\wider_pyramid\\trades.csv",
+        "equity_csv": "outputs\\candidate-comparison\\wider_pyramid\\equity.csv",
+        "bootstrap_csv": "outputs\\candidate-comparison\\wider_pyramid\\bootstrap-simulations.csv",
+        "monte_carlo_csv": "outputs\\candidate-comparison\\wider_pyramid\\monte-carlo-simulations.csv",
+        "monthly_returns_csv": "outputs\\candidate-comparison\\wider_pyramid\\monthly-returns.csv",
+        "annual_returns_csv": "outputs\\candidate-comparison\\wider_pyramid\\annual-returns.csv",
+        "rolling_diagnostics_csv": "outputs\\candidate-comparison\\wider_pyramid\\rolling-diagnostics.csv",
+        "monte_carlo_drawdown_histogram": "outputs\\candidate-comparison\\wider_pyramid\\monte-carlo-drawdown-histogram.svg",
+        "bootstrap_expectancy_histogram": "outputs\\candidate-comparison\\wider_pyramid\\bootstrap-expectancy-histogram.svg",
+        "trade_return_histogram": "outputs\\candidate-comparison\\wider_pyramid\\trade-return-histogram.svg",
+        "equity_curve_chart": "outputs\\candidate-comparison\\wider_pyramid\\equity-curve.svg",
+        "rolling_expectancy_chart": "outputs\\candidate-comparison\\wider_pyramid\\rolling-expectancy.svg",
+        "rolling_profit_factor_chart": "outputs\\candidate-comparison\\wider_pyramid\\rolling-profit-factor.svg",
+        "rolling_win_rate_chart": "outputs\\candidate-comparison\\wider_pyramid\\rolling-win-rate.svg",
+        "monthly_returns_chart": "outputs\\candidate-comparison\\wider_pyramid\\monthly-returns.svg",
+        "annual_returns_chart": "outputs\\candidate-comparison\\wider_pyramid\\annual-returns.svg",
+        "underwater_drawdown_chart": "outputs\\candidate-comparison\\wider_pyramid\\underwater-drawdown.svg"
+      }
+    },
+    {
+      "definition": {
+        "candidate_id": "lower_stop",
+        "label": "Lower stop",
+        "entry_window": 15,
+        "stop_atr_multiplier": 1.75,
+        "pyramid_atr_interval": 0.75,
+        "risk_per_unit_pct": 0.0025
+      },
+      "combined": {
+        "expectancy": 8.434081396719318,
+        "profit_factor": 1.439783089422779,
+        "win_rate": 0.3438914027149321,
+        "max_drawdown_pct": 0.07713474686658606,
+        "net_profit": 1863.9319886749727,
+        "trade_count": 221,
+        "max_exposure_pct": 0.770315115711372,
+        "drawdown_gate_passed": true
+      },
+      "per_symbol": [
+        {
+          "candidate_id": "lower_stop",
+          "label": "Lower stop",
+          "symbol": "XAUUSD.var",
+          "expectancy": 9.607347800654114,
+          "profit_factor": 1.5662103048165046,
+          "win_rate": 0.3465909090909091,
+          "max_drawdown_pct": 0.07340326795170721,
+          "net_profit": 1690.8932129151272,
+          "trade_count": 176,
+          "max_exposure_pct": 0.6813596666057591,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        },
+        {
+          "candidate_id": "lower_stop",
+          "label": "Lower stop",
+          "symbol": "XAGUSD.var",
+          "expectancy": 3.8453061279965595,
+          "profit_factor": 1.1382138337543986,
+          "win_rate": 0.3333333333333333,
+          "max_drawdown_pct": 0.11134162257683926,
+          "net_profit": 173.03877575984552,
+          "trade_count": 45,
+          "max_exposure_pct": 0.24240026814982837,
+          "positive_expectancy": true,
+          "drawdown_gate_passed": true
+        }
+      ],
+      "bootstrap": {
+        "expectancy_ci": [
+          -0.684785244671639,
+          18.30400410093839
+        ],
+        "profit_factor_ci": [
+          0.9676757986330843,
+          2.044468253951177
+        ],
+        "win_rate_ci": [
+          0.28054298642533937,
+          0.4072398190045249
+        ],
+        "expectancy_median": 8.304121678226412,
+        "profit_factor_median": 1.4331163261548725,
+        "win_rate_median": 0.3438914027149321,
+        "prob_expectancy_positive": 0.9642,
+        "prob_profit_factor_gt_1": 0.9642
+      },
+      "monte_carlo": {
+        "median_return": 0.09319659943374864,
+        "mean_return": 0.09319659943374867,
+        "worst_5pct_drawdown": 0.04077065208142876,
+        "worst_drawdown_observed": 0.06815765100476141,
+        "best_drawdown_observed": 0.012015965464279162,
+        "return_95pct_ci": [
+          0.09319659943374844,
+          0.093196599433749
+        ],
+        "prob_drawdown_gt_10pct": 0.0,
+        "prob_drawdown_gt_15pct": 0.0,
+        "prob_drawdown_gt_20pct": 0.0,
+        "prob_drawdown_gt_25pct": 0.0,
+        "note": "Trade-order randomization keeps total return fixed; drawdown distribution changes with order."
+      },
+      "regimes": {
+        "candidate_id": "lower_stop",
+        "worst_month": "2022-01",
+        "worst_month_return": -0.013734563770809978,
+        "best_month": "2019-09",
+        "best_month_return": 0.0444347724233427,
+        "worst_year": "2021",
+        "worst_year_return": -0.02550935134674373,
+        "best_year": "2020",
+        "best_year_return": 0.04701271415960016,
+        "worst_rolling_expectancy_time": "2022-01-27 00:00:00",
+        "worst_rolling_expectancy": -29.043501516204554,
+        "best_rolling_expectancy_time": "2020-09-21 00:00:00",
+        "best_rolling_expectancy": 73.75189712324466,
+        "worst_rolling_profit_factor_time": "2022-01-27 00:00:00",
+        "worst_rolling_profit_factor": 0.08047393143535651,
+        "best_rolling_profit_factor_time": "2020-09-21 00:00:00",
+        "best_rolling_profit_factor": 5.3580825142769966,
+        "degraded_rolling_windows": 90
+      },
+      "artifacts": {
+        "candidate_id": "lower_stop",
+        "trades_csv": "outputs\\candidate-comparison\\lower_stop\\trades.csv",
+        "equity_csv": "outputs\\candidate-comparison\\lower_stop\\equity.csv",
+        "bootstrap_csv": "outputs\\candidate-comparison\\lower_stop\\bootstrap-simulations.csv",
+        "monte_carlo_csv": "outputs\\candidate-comparison\\lower_stop\\monte-carlo-simulations.csv",
+        "monthly_returns_csv": "outputs\\candidate-comparison\\lower_stop\\monthly-returns.csv",
+        "annual_returns_csv": "outputs\\candidate-comparison\\lower_stop\\annual-returns.csv",
+        "rolling_diagnostics_csv": "outputs\\candidate-comparison\\lower_stop\\rolling-diagnostics.csv",
+        "monte_carlo_drawdown_histogram": "outputs\\candidate-comparison\\lower_stop\\monte-carlo-drawdown-histogram.svg",
+        "bootstrap_expectancy_histogram": "outputs\\candidate-comparison\\lower_stop\\bootstrap-expectancy-histogram.svg",
+        "trade_return_histogram": "outputs\\candidate-comparison\\lower_stop\\trade-return-histogram.svg",
+        "equity_curve_chart": "outputs\\candidate-comparison\\lower_stop\\equity-curve.svg",
+        "rolling_expectancy_chart": "outputs\\candidate-comparison\\lower_stop\\rolling-expectancy.svg",
+        "rolling_profit_factor_chart": "outputs\\candidate-comparison\\lower_stop\\rolling-profit-factor.svg",
+        "rolling_win_rate_chart": "outputs\\candidate-comparison\\lower_stop\\rolling-win-rate.svg",
+        "monthly_returns_chart": "outputs\\candidate-comparison\\lower_stop\\monthly-returns.svg",
+        "annual_returns_chart": "outputs\\candidate-comparison\\lower_stop\\annual-returns.svg",
+        "underwater_drawdown_chart": "outputs\\candidate-comparison\\lower_stop\\underwater-drawdown.svg"
+      }
+    }
+  ],
+  "artifacts": {
+    "combined_metrics_csv": "outputs\\candidate-comparison\\combined-metrics.csv",
+    "per_symbol_metrics_csv": "outputs\\candidate-comparison\\per-symbol-metrics.csv",
+    "bootstrap_summary_csv": "outputs\\candidate-comparison\\bootstrap-summary.csv",
+    "monte_carlo_summary_csv": "outputs\\candidate-comparison\\monte-carlo-summary.csv",
+    "regime_summary_csv": "outputs\\candidate-comparison\\regime-summary.csv",
+    "candidate_artifacts_csv": "outputs\\candidate-comparison\\candidate-artifacts.csv",
+    "candidate_ranking_csv": "outputs\\candidate-comparison\\candidate-ranking.csv",
+    "markdown_report": "outputs\\candidate-comparison\\candidate-comparison-report.md"
+  },
+  "coverage": [
+    {
+      "requested_symbol": "XAUUSD",
+      "actual_symbol": "XAUUSD.var",
+      "bars": 2451,
+      "first_bar": "2013-12-24 00:00:00",
+      "last_bar": "2022-12-30 00:00:00",
+      "mt5_historical_spread_valid": false,
+      "mt5_historical_spread_reason": "MT5 spread_price contains zero or negative values",
+      "mt5_average_spread_price_raw": 0.0,
+      "mt5_average_spread_raw": 0.0,
+      "spread_source_used": "configured_conservative_assumption",
+      "spread_used": "0.5 price units per spread model input",
+      "assumed_spread_price": 0.5
+    },
+    {
+      "requested_symbol": "XAGUSD",
+      "actual_symbol": "XAGUSD.var",
+      "bars": 756,
+      "first_bar": "2013-12-24 00:00:00",
+      "last_bar": "2022-12-30 00:00:00",
+      "mt5_historical_spread_valid": false,
+      "mt5_historical_spread_reason": "MT5 spread_price contains zero or negative values",
+      "mt5_average_spread_price_raw": 0.0,
+      "mt5_average_spread_raw": 0.0,
+      "spread_source_used": "configured_conservative_assumption",
+      "spread_used": "0.05 price units per spread model input",
+      "assumed_spread_price": 0.05
+    }
+  ]
+}

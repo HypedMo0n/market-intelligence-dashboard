@@ -1,0 +1,82 @@
+{
+  "phase": "Phase 1 final decision package",
+  "date": "2026-07-08",
+  "verdict": "Conditional Pass",
+  "final_recommendation": {
+    "proceed_to_phase_2": true,
+    "proceed_to_live_or_demo_execution": false,
+    "recommended_next_state": "journal + paper-tracking only",
+    "candidate_status": "conditional XAG-led candidate, not proven portfolio system"
+  },
+  "no_oos_tuning_warning": {
+    "warning": "This OOS result must not be used to tune parameters.",
+    "future_changes_require_new_validation_protocol": true
+  },
+  "frozen_candidate": {
+    "candidate_id": "lower_risk",
+    "entry_window": 15,
+    "exit_window": 8,
+    "atr_period": 20,
+    "stop_atr_multiplier": 2.0,
+    "pyramid_atr_interval": 0.75,
+    "risk_per_unit_pct": 0.00125,
+    "max_total_lots": 10,
+    "max_account_leverage": 5,
+    "max_open_risk_pct": 0.01,
+    "symbol_drawdown_pause_pct": null,
+    "portfolio_drawdown_pause_pct": null
+  },
+  "what_passed": [
+    "Portfolio-level OOS expectancy was positive.",
+    "Portfolio-level OOS profit factor was above 1.",
+    "OOS max drawdown stayed below the 25% gate.",
+    "OOS net profit was positive.",
+    "XAGUSD.var was positive OOS."
+  ],
+  "what_failed": [
+    "XAUUSD.var produced 0 closed trades in OOS.",
+    "XAUUSD.var did not confirm positive OOS expectancy.",
+    "The portfolio result was carried entirely by XAGUSD.var.",
+    "The system did not prove a diversified XAU/XAG portfolio edge.",
+    "OOS expectancy and profit factor retention were weak."
+  ],
+  "what_remains_uncertain": [
+    "Whether XAUUSD.var has a real edge under the frozen rules.",
+    "Whether XAGUSD.var edge is durable enough for automation.",
+    "Whether the portfolio has enough diversification benefit.",
+    "Whether conservative spread assumptions remain representative in future conditions."
+  ],
+  "symbol_decisions": {
+    "XAUUSD.var": {
+      "remain_in_candidate_universe": true,
+      "oos_confirmed": false,
+      "phase_2_status": "track separately as unconfirmed/inactive under the frozen candidate"
+    },
+    "XAGUSD.var": {
+      "remain_in_candidate_universe": true,
+      "oos_confirmed": true,
+      "phase_2_status": "track separately as the only OOS-confirmed symbol"
+    }
+  },
+  "key_oos_metrics": {
+    "combined_expectancy": 3.466364072972933,
+    "combined_profit_factor": 1.2687543463324424,
+    "combined_win_rate": 0.2872340425531915,
+    "combined_max_drawdown_pct": 0.04504527777866086,
+    "combined_net_profit": 325.83822285945644,
+    "combined_trade_count": 94,
+    "combined_max_exposure_pct": 0.31562777700795164,
+    "drawdown_gate_passed": true,
+    "expectancy_retention": 0.2419615887902957,
+    "profit_factor_retention": 0.5711669413175715,
+    "edge_generalized": false
+  },
+  "evidence_files": {
+    "decision_report": "outputs/phase1-final-decision-package.md",
+    "oos_summary": "outputs/oos-validation/oos-validation-summary.json",
+    "oos_report": "outputs/oos-validation/oos-validation-report.md",
+    "oos_combined_metrics": "outputs/oos-validation/combined-metrics.csv",
+    "oos_per_symbol_metrics": "outputs/oos-validation/per-symbol-metrics.csv",
+    "in_sample_candidate_comparison": "outputs/candidate-comparison/candidate-comparison-summary.json"
+  }
+}

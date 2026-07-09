@@ -1,0 +1,119 @@
+{
+  "phase": "Phase 1 robustness and statistical validation, in-sample only",
+  "out_of_sample_guard": "No data on or after 2023-01-01 was loaded or evaluated.",
+  "in_sample_period": {
+    "start": "2013-12-24",
+    "end": "2022-12-31"
+  },
+  "strongest_candidate_selection": "Passing drawdown gate, positive expectancy on both symbols, lowest max drawdown, then highest expectancy.",
+  "strongest_candidate": {
+    "config_id": 651,
+    "candidate_name": "entry_15_exit_8_stop_2.0_pyr_0.75",
+    "entry_window": 15,
+    "exit_window": 8,
+    "atr_period": 20,
+    "stop_atr_multiplier": 2.0,
+    "pyramid_atr_interval": 0.75,
+    "risk_per_unit_pct": 0.0025,
+    "exposure_profile": "base_10_lots_5x",
+    "max_total_lots": 10.0,
+    "max_account_leverage": 5.0,
+    "max_open_risk_pct": 0.01,
+    "symbol_drawdown_pause_pct": null,
+    "portfolio_drawdown_pause_pct": null,
+    "drawdown_policy": "none",
+    "expectancy": 6.228806307996656,
+    "profit_factor": 1.2870249537219414,
+    "max_drawdown_pct": 0.0812623288413309,
+    "net_profit": 1270.6764868313185,
+    "trade_count": 204,
+    "max_exposure_pct": 0.7114880333825541,
+    "all_symbols_positive_expectancy": true,
+    "drawdown_gate_passed": true
+  },
+  "monte_carlo": {
+    "median_return": 0.06353382434156592,
+    "mean_return": 0.06353382434156599,
+    "worst_5pct_drawdown": 0.050557403504997045,
+    "worst_drawdown_observed": 0.07466450900283497,
+    "best_drawdown_observed": 0.0136099840969606,
+    "return_95pct_ci": [
+      0.06353382434156574,
+      0.06353382434156629
+    ],
+    "prob_drawdown_gt_10pct": 0.0,
+    "prob_drawdown_gt_15pct": 0.0,
+    "prob_drawdown_gt_20pct": 0.0,
+    "prob_drawdown_gt_25pct": 0.0,
+    "note": "Trade-order randomization keeps total return fixed; drawdown distribution changes with order."
+  },
+  "bootstrap": {
+    "expectancy_ci": [
+      -3.8094740451826334,
+      17.09734257085182
+    ],
+    "profit_factor_ci": [
+      0.839868538914842,
+      1.8650389115222483
+    ],
+    "win_rate_ci": [
+      0.25,
+      0.37745098039215685
+    ],
+    "expectancy_median": 6.032247097474277,
+    "profit_factor_median": 1.278661673369451,
+    "win_rate_median": 0.3137254901960784,
+    "prob_expectancy_positive": 0.884,
+    "prob_profit_factor_gt_1": 0.884
+  },
+  "verdict": {
+    "classification": "Promising but Needs Further Research",
+    "robust_parameter_regions": 3,
+    "median_neighbor_expectancy_retention": 1.2397211555082417,
+    "degraded_rolling_windows": 0,
+    "reasoning": "Verdict uses in-sample evidence only: survivor stability, immediate-neighbor retention, Monte Carlo drawdown risk, bootstrap edge confidence, and rolling degradation."
+  },
+  "artifacts": {
+    "stability_csv": "outputs\\robustness\\parameter-stability-rankings.csv",
+    "neighborhood_csv": "outputs\\robustness\\neighborhood-analysis.csv",
+    "trades_csv": "outputs\\robustness\\strongest-candidate-trades.csv",
+    "equity_csv": "outputs\\robustness\\strongest-candidate-equity.csv",
+    "monte_carlo_csv": "outputs\\robustness\\monte-carlo-simulations.csv",
+    "bootstrap_csv": "outputs\\robustness\\bootstrap-simulations.csv",
+    "heatmaps": {
+      "profit_factor_pyramid_0.5": "outputs\\robustness\\heatmap-profit_factor-pyramid-0.5.svg",
+      "profit_factor_pyramid_0.75": "outputs\\robustness\\heatmap-profit_factor-pyramid-0.75.svg",
+      "expectancy_pyramid_0.5": "outputs\\robustness\\heatmap-expectancy-pyramid-0.5.svg",
+      "expectancy_pyramid_0.75": "outputs\\robustness\\heatmap-expectancy-pyramid-0.75.svg",
+      "net_profit_pyramid_0.5": "outputs\\robustness\\heatmap-net_profit-pyramid-0.5.svg",
+      "net_profit_pyramid_0.75": "outputs\\robustness\\heatmap-net_profit-pyramid-0.75.svg",
+      "max_drawdown_pct_pyramid_0.5": "outputs\\robustness\\heatmap-max_drawdown_pct-pyramid-0.5.svg",
+      "max_drawdown_pct_pyramid_0.75": "outputs\\robustness\\heatmap-max_drawdown_pct-pyramid-0.75.svg",
+      "win_rate_pyramid_0.5": "outputs\\robustness\\heatmap-win_rate-pyramid-0.5.svg",
+      "win_rate_pyramid_0.75": "outputs\\robustness\\heatmap-win_rate-pyramid-0.75.svg"
+    },
+    "charts": {
+      "mc_drawdown_histogram": "outputs\\robustness\\monte-carlo-drawdown-histogram.svg",
+      "bootstrap_expectancy_histogram": "outputs\\robustness\\bootstrap-expectancy-histogram.svg",
+      "trade_return_histogram": "outputs\\robustness\\trade-return-histogram.svg",
+      "equity_curve": "outputs\\robustness\\equity-curve.svg",
+      "underwater_drawdown": "outputs\\robustness\\underwater-drawdown.svg",
+      "rolling_profit_factor": "outputs\\robustness\\rolling-profit-factor.svg",
+      "rolling_expectancy": "outputs\\robustness\\rolling-expectancy.svg",
+      "rolling_win_rate": "outputs\\robustness\\rolling-win-rate.svg",
+      "monthly_returns": "outputs\\robustness\\monthly-return-distribution.svg",
+      "annual_returns": "outputs\\robustness\\annual-return-distribution.svg"
+    },
+    "distribution_tables": {
+      "largest_winners": "outputs\\robustness\\largest_winners.csv",
+      "largest_losers": "outputs\\robustness\\largest_losers.csv",
+      "streaks": "outputs\\robustness\\streaks.csv",
+      "monthly_returns": "outputs\\robustness\\monthly_returns.csv",
+      "annual_returns": "outputs\\robustness\\annual_returns.csv"
+    },
+    "diagnostics_tables": {
+      "degraded_periods": "outputs\\robustness\\degraded-rolling-periods.csv"
+    },
+    "markdown_report": "outputs\\robustness\\robustness-report.md"
+  }
+}

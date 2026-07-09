@@ -1,0 +1,3 @@
+candidate_id,symbol,expectancy,profit_factor,win_rate,max_drawdown_pct,net_profit,trade_count,max_exposure_pct,positive_expectancy,drawdown_gate_passed
+lower_risk,XAUUSD.var,0.0,0.0,0.0,0.0,0.0,0,0.0,False,True
+lower_risk,XAGUSD.var,3.466364072972933,1.2687543463324424,0.2872340425531915,0.08928478614054293,325.83822285945644,94,0.31562777700795164,True,True

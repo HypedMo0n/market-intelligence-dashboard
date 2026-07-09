@@ -1,0 +1,4 @@
+python-dotenv>=1.0.1
+
+# Required for the dashboard MT5 bridge on the local MT5 machine:
+MetaTrader5>=5.0.45

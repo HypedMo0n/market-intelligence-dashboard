@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520"><style>text{font-family:Arial,sans-serif;fill:#e9ecef}.title{font-size:20px;font-weight:700}.axis{font-size:12px;fill:#adb5bd}.cell{font-size:11px;fill:#fff}</style><rect width="100%" height="100%" fill="#0b0f14"/><text x="24" y="28" class="title">Rolling Expectancy</text>
+<text x="70" y="35" class="axis">Expectancy</text>
+<polyline points="70.00,260.00" fill="none" stroke="#1c7ed6" stroke-width="2"/>
+<line x1="70" x2="70" y1="70" y2="450" stroke="#444"/>
+<line x1="70" x2="910" y1="450" y2="450" stroke="#444"/>
+</svg>

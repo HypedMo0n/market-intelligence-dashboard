@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="520" viewBox="0 0 980 520"><style>text{font-family:Arial,sans-serif;fill:#e9ecef}.title{font-size:20px;font-weight:700}.axis{font-size:12px;fill:#adb5bd}.cell{font-size:11px;fill:#fff}</style><rect width="100%" height="100%" fill="#0b0f14"/><text x="24" y="28" class="title">Bootstrap Expectancy</text>
+<text x="70" y="35" class="axis">Count</text>
+<rect x="70.00" y="449.61" width="26.00" height="0.39" fill="#2f9e44" opacity="0.82"/>
+<rect x="98.00" y="448.07" width="26.00" height="1.93" fill="#2f9e44" opacity="0.82"/>
+<rect x="126.00" y="448.84" width="26.00" height="1.16" fill="#2f9e44" opacity="0.82"/>
+<rect x="154.00" y="446.90" width="26.00" height="3.10" fill="#2f9e44" opacity="0.82"/>
+<rect x="182.00" y="434.91" width="26.00" height="15.09" fill="#2f9e44" opacity="0.82"/>
+<rect x="210.00" y="417.49" width="26.00" height="32.51" fill="#2f9e44" opacity="0.82"/>
+<rect x="238.00" y="403.95" width="26.00" height="46.05" fill="#2f9e44" opacity="0.82"/>
+<rect x="266.00" y="373.77" width="26.00" height="76.23" fill="#2f9e44" opacity="0.82"/>
+<rect x="294.00" y="320.37" width="26.00" height="129.63" fill="#2f9e44" opacity="0.82"/>
+<rect x="322.00" y="276.25" width="26.00" height="173.75" fill="#2f9e44" opacity="0.82"/>
+<rect x="350.00" y="216.66" width="26.00" height="233.34" fill="#2f9e44" opacity="0.82"/>
+<rect x="378.00" y="142.36" width="26.00" height="307.64" fill="#2f9e44" opacity="0.82"/>
+<rect x="406.00" y="90.12" width="26.00" height="359.88" fill="#2f9e44" opacity="0.82"/>
+<rect x="434.00" y="89.74" width="26.00" height="360.26" fill="#2f9e44" opacity="0.82"/>
+<rect x="462.00" y="70.00" width="26.00" height="380.00" fill="#2f9e44" opacity="0.82"/>
+<rect x="490.00" y="99.02" width="26.00" height="350.98" fill="#2f9e44" opacity="0.82"/>
+<rect x="518.00" y="116.82" width="26.00" height="333.18" fill="#2f9e44" opacity="0.82"/>
+<rect x="546.00" y="160.55" width="26.00" height="289.45" fill="#2f9e44" opacity="0.82"/>
+<rect x="574.00" y="232.91" width="26.00" height="217.09" fill="#2f9e44" opacity="0.82"/>
+<rect x="602.00" y="274.32" width="26.00" height="175.68" fill="#2f9e44" opacity="0.82"/>
+<rect x="630.00" y="321.53" width="26.00" height="128.47" fill="#2f9e44" opacity="0.82"/>
+<rect x="658.00" y="358.68" width="26.00" height="91.32" fill="#2f9e44" opacity="0.82"/>
+<rect x="686.00" y="383.05" width="26.00" height="66.95" fill="#2f9e44" opacity="0.82"/>
+<rect x="714.00" y="410.53" width="26.00" height="39.47" fill="#2f9e44" opacity="0.82"/>
+<rect x="742.00" y="428.72" width="26.00" height="21.28" fill="#2f9e44" opacity="0.82"/>
+<rect x="770.00" y="431.43" width="26.00" height="18.57" fill="#2f9e44" opacity="0.82"/>
+<rect x="798.00" y="441.49" width="26.00" height="8.51" fill="#2f9e44" opacity="0.82"/>
+<rect x="826.00" y="446.52" width="26.00" height="3.48" fill="#2f9e44" opacity="0.82"/>
+<rect x="854.00" y="447.29" width="26.00" height="2.71" fill="#2f9e44" opacity="0.82"/>
+<rect x="882.00" y="448.45" width="26.00" height="1.55" fill="#2f9e44" opacity="0.82"/>
+<line x1="70" x2="910" y1="450.00" y2="450.00" stroke="#444"/>
+</svg>

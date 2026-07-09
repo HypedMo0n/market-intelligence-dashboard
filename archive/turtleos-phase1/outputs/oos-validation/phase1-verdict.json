@@ -1,0 +1,8 @@
+{
+  "classification": "Conditional Pass",
+  "reasons": [
+    "Not all symbols have positive OOS expectancy.",
+    "OOS portfolio passed core gates, but one or more confirmation checks failed."
+  ],
+  "no_oos_tuning_policy": "No parameter tuning, filtering, or reselection is allowed from this OOS result."
+}

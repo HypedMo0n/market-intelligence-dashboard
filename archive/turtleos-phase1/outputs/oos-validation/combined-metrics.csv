@@ -1,0 +1,2 @@
+expectancy,profit_factor,win_rate,max_drawdown_pct,net_profit,trade_count,max_exposure_pct,drawdown_gate_passed,candidate_id
+3.466364072972933,1.2687543463324424,0.2872340425531915,0.04504527777866086,325.83822285945644,94,0.31562777700795164,True,lower_risk

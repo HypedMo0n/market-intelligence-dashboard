@@ -1,0 +1,5 @@
+candidate_id,label,statistical_robustness_score,drawdown_control_score,symbol_stability_score,regime_stability_score,simplicity_score,total_score,rank_reason
+lower_risk,Lower-risk,99.983,100.0,80.88800782345939,30.045468693983764,95.0,85.17847186878944,Bootstrap P(expectancy>0)=100.0%; observed max DD=4.9%; MC 95th percentile DD=1.5%; both symbols positive=True; degraded rolling windows=35.
+wider_pyramid,Wider pyramid,89.65878034688527,92.78118361470831,92.65810573096269,21.945709180473543,80.0,79.76028736761506,Bootstrap P(expectancy>0)=95.2%; observed max DD=7.4%; MC 95th percentile DD=4.2%; both symbols positive=True; degraded rolling windows=58.
+lower_stop,Lower stop,91.24203744819451,91.85957594002419,89.29199824953146,22.011848285883914,75.0,78.9668051876618,Bootstrap P(expectancy>0)=96.4%; observed max DD=7.7%; MC 95th percentile DD=4.1%; both symbols positive=True; degraded rolling windows=90.
+base,Base,81.20531978662345,90.6213013476007,89.0383108428369,21.898935786660928,100.0,77.63862473140487,Bootstrap P(expectancy>0)=88.0%; observed max DD=8.1%; MC 95th percentile DD=5.1%; both symbols positive=True; degraded rolling windows=75.
