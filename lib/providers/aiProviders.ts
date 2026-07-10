@@ -16,7 +16,7 @@ type AiResult<T> = {
   value: T;
 };
 
-const DEFAULT_GEMINI_MODEL = "gemini-1.5-flash";
+const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash";
 const DEFAULT_GROQ_MODEL = "llama-3.1-8b-instant";
 
 export function hasGeminiConfig() {
@@ -45,8 +45,11 @@ export async function callAiJsonWithFallback<T>(options: AiOptions): Promise<AiR
         model: process.env.GEMINI_MODEL || DEFAULT_GEMINI_MODEL,
         value: await callGeminiJson<T>(options),
       };
-    } catch {
-      if (!hasGroqConfig()) throw new Error("Gemini request failed and Groq is not configured.");
+    } catch (error) {
+      if (!hasGroqConfig()) {
+        const message = error instanceof Error ? error.message : "Unknown Gemini error.";
+        throw new Error(`Gemini request failed and Groq is not configured: ${message}`);
+      }
     }
   }
 
