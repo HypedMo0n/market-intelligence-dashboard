@@ -18,6 +18,7 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
   const macroBias = macro?.macroBias || macro?.bias || "neutral";
   const chartBias = mt5?.trend === "up" ? "bullish" : mt5?.trend === "down" ? "bearish" : "neutral";
   const marketStatus = getMarketStatus(macro, mt5);
+  const freshness = getFreshness(mt5?.createdAt);
 
   return (
     <div style={{ background: C.surface, border: `1px solid ${C.line}` }} className="rounded-lg p-5 flex flex-col gap-4">
@@ -36,11 +37,16 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
         >
           {statusLabel(marketStatus.status)}
         </span>
+        <p style={{ color: C.textDim }} className="basis-full text-xs leading-relaxed">
+          {marketStatus.plainEnglish}
+        </p>
       </div>
 
       <div className="grid grid-cols-2 gap-2 text-xs">
         <Field label="Current price" value={formatLevel(mt5?.price)} />
-        <Field label="Last updated" value={formatTimestamp(mt5?.timestamp)} />
+        <Field label="MT5 candle" value={formatTimestamp(mt5?.timestamp)} />
+        <Field label="Received" value={formatTimestamp(mt5?.createdAt)} />
+        <Field label="Freshness" value={freshness.label} color={freshness.color} />
         <Field label="Macro bias" value={macroBias} color={biasColor(macroBias)} />
         <Field label="Chart bias" value={chartBias} color={biasColor(chartBias)} />
       </div>
@@ -77,11 +83,16 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
         ) : (
           <div className="grid grid-cols-2 gap-2 text-xs" style={{ color: C.textDim }}>
             <Field label="Trend" value={mt5.trend || "-"} />
-            <Field label="Volatility" value={mt5.volatility || "-"} />
-            <Field label="Support" value={formatLevel(mt5.support)} />
-            <Field label="Resistance" value={formatLevel(mt5.resistance)} />
+            <Field label="Volatility" value={formatVolatility(mt5)} />
+            <Field label="Nearest swing support" value={formatLevel(mt5.support)} />
+            <Field label="Nearest swing resistance" value={formatLevel(mt5.resistance)} />
             <Field label="Recent high" value={formatLevel(mt5.recentHigh)} />
             <Field label="Recent low" value={formatLevel(mt5.recentLow)} />
+            {mt5.candleMayBeForming && (
+              <div className="col-span-2">
+                <Field label="Candle note" value="Current H1 candle may still be forming." />
+              </div>
+            )}
             <div className="col-span-2">
               <Field label="Market structure" value={mt5.structure || "-"} />
             </div>
@@ -110,6 +121,16 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
         </div>
         <div style={{ color: C.textDim }} className="text-sm leading-relaxed flex flex-col gap-2">
           <p>{marketStatus.plainEnglish}</p>
+          <details style={{ borderColor: C.line }} className="rounded border px-3 py-2">
+            <summary style={{ color: C.gold }} className="cursor-pointer text-xs uppercase tracking-wide font-mono">
+              Why?
+            </summary>
+            <div className="mt-2 flex flex-col gap-2">
+              <FactorList title="Positive factors" items={marketStatus.positiveFactors} />
+              <FactorList title="Caution factors" items={marketStatus.cautionFactors} />
+              <FactorList title="Blocking risks" items={marketStatus.blockingRisks} />
+            </div>
+          </details>
           <p>{macro?.likelyScenario || "Use the MT5 snapshot to understand current structure. This app does not issue trade instructions."}</p>
           {macro?.alternativeScenario && (
             <p>
@@ -120,10 +141,11 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
           <Evidence title="Bullish evidence" items={macro?.bullishEvidence} />
           <Evidence title="Bearish evidence" items={macro?.bearishEvidence} />
           <Evidence title="Conflicting evidence" items={macro?.conflictingEvidence} />
-          <Evidence title="Status reasons" items={marketStatus.reasons} />
           <p>
             <span style={{ color: C.text }}>Beginner explanation: </span>
             {macro?.beginnerExplanation || mt5?.beginnerExplanation || "MT5 data shows what price is doing; macro context explains why it may matter."}
+            {" "}
+            This is market-structure context, not a buy/sell recommendation.
           </p>
           <p>
             <span style={{ color: C.text }}>Invalidation level: </span>
@@ -132,6 +154,15 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
         </div>
       </div>
     </div>
+  );
+}
+
+function FactorList({ title, items }: { title: string; items: string[] }) {
+  return (
+    <p>
+      <span style={{ color: C.text }}>{title}: </span>
+      {items.length ? items.join("; ") : "None."}
+    </p>
   );
 }
 
@@ -185,4 +216,25 @@ function formatTimestamp(value: string | undefined) {
   if (!value) return "-";
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? value : date.toLocaleString();
+}
+
+function getFreshness(createdAt: string | undefined) {
+  if (!createdAt) {
+    return { label: "NO DATA", color: C.neutral };
+  }
+  const receivedAt = new Date(createdAt).getTime();
+  if (Number.isNaN(receivedAt)) {
+    return { label: "NO DATA", color: C.neutral };
+  }
+  const ageMinutes = (Date.now() - receivedAt) / 60_000;
+  if (ageMinutes <= 15) {
+    return { label: "LIVE", color: C.rise };
+  }
+  return { label: "STALE", color: C.amber };
+}
+
+function formatVolatility(mt5: ChartRead) {
+  const value = mt5.volatilityDetail || mt5.volatility || "-";
+  if (value === "-") return value;
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }

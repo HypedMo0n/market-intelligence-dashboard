@@ -18,5 +18,5 @@ export const EXPLAIN_MAP: Record<string, string> = {
   newsRisk:
     "Scheduled high-impact releases can widen spreads and cause fast two-way price movement.",
   tradeReadiness:
-    "A composite score for alignment, confidence, news risk, volatility, clear levels, and conflicting evidence.",
+    "Signal Clarity summarizes whether macro context, chart direction, volatility, news risk, levels, and conflicting evidence point to a clean or mixed read. It is not a trade probability.",
 };

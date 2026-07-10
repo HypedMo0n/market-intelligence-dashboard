@@ -48,6 +48,8 @@ export type ChartRead = {
   trend?: ChartTrend;
   structure?: string;
   volatility?: Volatility;
+  volatilityDetail?: string | null;
+  atr?: number | null;
   support?: number | string | null;
   resistance?: number | string | null;
   recentHigh?: number | string | null;
@@ -59,5 +61,7 @@ export type ChartRead = {
   notes?: string | null;
   source?: string;
   timestamp?: string;
+  createdAt?: string;
+  candleMayBeForming?: boolean;
   price?: number | null;
 };

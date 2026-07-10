@@ -9,9 +9,14 @@ type IncomingSnapshot = {
   instrument?: string;
   timestamp?: string;
   price?: number;
+  atr?: number | null;
+  current_atr?: number | null;
+  currentAtr?: number | null;
   trend?: string;
   structure?: string;
   volatility?: string;
+  volatility_detail?: string | null;
+  volatilityDetail?: string | null;
   support?: number | null;
   resistance?: number | null;
   recent_high?: number | null;
@@ -21,6 +26,8 @@ type IncomingSnapshot = {
   liquidity_zones?: string | null;
   liquidityZones?: string | null;
   notes?: string | null;
+  candle_may_be_forming?: boolean;
+  candleMayBeForming?: boolean;
 };
 
 export async function POST(request: NextRequest) {
