@@ -315,7 +315,7 @@ function isStringArray(value: unknown): value is string[] {
 }
 
 export const marketBriefRuntimeConfig = {
-  defaultModel: "gemini-1.5-flash",
+  defaultModel: "gemini-3.5-flash",
   temperature: MARKET_BRIEF_TEMPERATURE,
   maxTokens: MARKET_BRIEF_MAX_TOKENS,
   timeoutMs: 15_000,
