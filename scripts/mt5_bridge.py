@@ -9,6 +9,10 @@ from datetime import datetime, timezone
 from typing import Any
 from urllib import request
 
+from dotenv import load_dotenv
+
+load_dotenv(".env.local")
+
 try:
     import MetaTrader5 as mt5  # type: ignore
 except ImportError as exc:  # pragma: no cover - only runs on local MT5 machine
@@ -25,25 +29,34 @@ class Snapshot:
     instrument: str
     timestamp: str
     price: float
+    atr: float
     trend: str
     structure: str
     volatility: str
+    volatility_detail: str
     support: float | None
     resistance: float | None
     recent_high: float | None
     recent_low: float | None
     liquidity_zones: str
     notes: str
+    candle_may_be_forming: bool
 
 
 def main() -> int:
     app_url = os.getenv("VERCEL_APP_URL", "").rstrip("/")
     ingest_secret = os.getenv("MT5_INGEST_SECRET", "")
+    fred_api_key = os.getenv("FRED_API_KEY", "")
 
     if not app_url:
-        raise SystemExit("VERCEL_APP_URL is required, for example https://your-app.vercel.app")
+        raise SystemExit(
+            "VERCEL_APP_URL is required. Check that .env.local exists in the project root, "
+            "contains VERCEL_APP_URL, and can be loaded by python-dotenv."
+        )
     if not ingest_secret:
         raise SystemExit("MT5_INGEST_SECRET is required.")
+    if not fred_api_key:
+        print("Warning: FRED_API_KEY is not set in the environment or .env.local.", file=sys.stderr)
 
     if not mt5.initialize():
         raise SystemExit(f"MT5 initialize failed: {mt5.last_error()}")
@@ -60,11 +73,11 @@ def main() -> int:
         if not bool(getattr(terminal, "trade_allowed", False)):
             print("Warning: MT5 terminal AutoTrading/trade_allowed is false. Continuing because this bridge reads data only.", file=sys.stderr)
 
-        login = int(getattr(account, "login", 0))
-        if login != 4401376:
-            raise SystemExit(f"Connected MT5 account is {login}, expected demo account 4401376.")
+        login = getattr(account, "login", "unknown")
+        server = getattr(account, "server", "unknown")
+        print(f"Connected MT5 account: login={login}, server={server}")
         if not is_demo_account(account):
-            raise SystemExit("Connected account does not look like a demo account. Refusing to post snapshots.")
+            print("Warning: connected account does not look like a demo account. Continuing because this bridge reads data only.", file=sys.stderr)
 
         snapshots = []
         for requested_symbol in SYMBOLS:
@@ -140,6 +153,7 @@ def build_snapshot(instrument: str, rates: Any) -> Snapshot:
     swing_highs, swing_lows = swings(highs, lows, window=2)
     structure = classify_structure(swing_highs[-3:], swing_lows[-3:])
     volatility = classify_volatility(current_atr, atr_avg)
+    volatility_detail = describe_volatility(volatility, current_atr, atr_avg)
     recent_high = max(highs[-24:])
     recent_low = min(lows[-24:])
     support = nearest_below(current, swing_lows) or recent_low
@@ -150,15 +164,18 @@ def build_snapshot(instrument: str, rates: Any) -> Snapshot:
         instrument=instrument,
         timestamp=timestamp,
         price=round(current, 5),
+        atr=round(current_atr, 5),
         trend=trend,
         structure=structure,
         volatility=volatility,
+        volatility_detail=volatility_detail,
         support=round(support, 5) if support is not None else None,
         resistance=round(resistance, 5) if resistance is not None else None,
         recent_high=round(recent_high, 5),
         recent_low=round(recent_low, 5),
-        liquidity_zones=f"Stops may cluster just below {recent_low:.5f} and just above {recent_high:.5f}.",
+        liquidity_zones="Potential stop areas may sit near the recent high and low.",
         notes=f"{instrument} is {trend} on H1 with {structure}; volatility is {volatility}.",
+        candle_may_be_forming=True,
     )
 
 
@@ -221,6 +238,17 @@ def classify_volatility(current_atr: float, average_atr: float) -> str:
     if ratio <= 0.75:
         return "calm"
     return "normal"
+
+
+def describe_volatility(volatility: str, current_atr: float, average_atr: float) -> str:
+    if average_atr <= 0:
+        return volatility
+    ratio = current_atr / average_atr
+    if abs(ratio - 0.75) <= 0.05:
+        return f"{volatility}, close to calm threshold"
+    if abs(ratio - 1.25) <= 0.05:
+        return f"{volatility}, close to aggressive threshold"
+    return volatility
 
 
 def nearest_below(price: float, values: list[float]) -> float | None:
