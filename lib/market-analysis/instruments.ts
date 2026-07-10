@@ -1,27 +1,25 @@
-export type InstrumentKey = "XAUUSD" | "XAGUSD" | "EURUSD" | "AUDUSD" | "GBPJPY";
+export type InstrumentKey = string;
 
 export type InstrumentMeta = {
   key: InstrumentKey;
   label: string;
   name: string;
-  group: "metal" | "fx";
+  group: "metal" | "fx" | "stock" | "etf" | "index" | "commodity" | "crypto" | "market";
+  provider?: "MT5" | "Twelve Data" | "cached data" | "unavailable";
 };
 
 export const INSTRUMENTS: InstrumentMeta[] = [
-  { key: "XAUUSD", label: "XAU/USD", name: "Gold", group: "metal" },
-  { key: "XAGUSD", label: "XAG/USD", name: "Silver", group: "metal" },
-  { key: "EURUSD", label: "EUR/USD", name: "Euro / Dollar", group: "fx" },
-  { key: "AUDUSD", label: "AUD/USD", name: "Aussie / Dollar", group: "fx" },
-  { key: "GBPJPY", label: "GBP/JPY", name: "Sterling / Yen", group: "fx" },
+  { key: "XAUUSD", label: "XAU/USD", name: "Gold", group: "metal", provider: "MT5" },
+  { key: "XAGUSD", label: "XAG/USD", name: "Silver", group: "metal", provider: "MT5" },
 ];
 
 export const INSTRUMENT_KEYS = INSTRUMENTS.map((instrument) => instrument.key);
 
 export function isInstrumentKey(value: string): value is InstrumentKey {
-  return INSTRUMENT_KEYS.includes(value as InstrumentKey);
+  return Boolean(value && typeof value === "string" && /^[A-Z0-9/._-]{2,20}$/i.test(value));
 }
 
-export const STATIC_DRIVERS: Record<InstrumentKey, string> = {
+export const STATIC_DRIVERS: Record<string, string> = {
   XAUUSD:
     "USD strength + real yields. A strong dollar and rising yields usually pressure gold; a weaker dollar or falling yields usually support it.",
   XAGUSD:
@@ -33,3 +31,7 @@ export const STATIC_DRIVERS: Record<InstrumentKey, string> = {
   GBPJPY:
     "UK rate expectations vs. yen weakness and risk mood. Known for sharp moves; yen weakness alone can push this pair higher even without a UK story.",
 };
+
+export function getStaticDriver(key: string) {
+  return STATIC_DRIVERS[key] || "Use provider data, macro context, relevant events, and recent price structure before forming a view.";
+}

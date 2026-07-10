@@ -9,26 +9,29 @@ import {
 } from "./marketBrief.ts";
 
 describe("market brief request validation", () => {
-  it("rejects malformed client request bodies before OpenAI", () => {
+  it("rejects malformed client request bodies before AI provider calls", () => {
     const result = validateMarketBriefRequest({ instrument: "EURUSD" });
     assert.equal(result.ok, false);
   });
 });
 
 describe("market brief fallback and validation", () => {
-  it("returns fallback when the OpenAI key is missing", async () => {
-    const oldKey = process.env.OPENAI_API_KEY;
-    delete process.env.OPENAI_API_KEY;
+  it("returns fallback when Gemini and Groq keys are missing", async () => {
+    const oldGeminiKey = process.env.GEMINI_API_KEY;
+    const oldGroqKey = process.env.GROQ_API_KEY;
+    delete process.env.GEMINI_API_KEY;
+    delete process.env.GROQ_API_KEY;
     try {
       const response = await generateMarketBrief(sampleInput(), { skipCache: true });
       assert.equal(response.fallback, true);
       assert(response.brief.headline.includes("AI explanation unavailable"));
     } finally {
-      if (oldKey) process.env.OPENAI_API_KEY = oldKey;
+      if (oldGeminiKey) process.env.GEMINI_API_KEY = oldGeminiKey;
+      if (oldGroqKey) process.env.GROQ_API_KEY = oldGroqKey;
     }
   });
 
-  it("rejects OpenAI attempting to override deterministic status", () => {
+  it("rejects AI attempting to override deterministic status", () => {
     const input = sampleInput({ status: "avoid" });
     const result = validateMarketBriefOutput(
       sampleBrief({ headline: "Market status is favorable even though rules say avoid." }),
@@ -69,6 +72,20 @@ describe("market brief fallback and validation", () => {
       callModel: async () => {
         calls += 1;
         return calls === 1 ? { headline: "missing schema" } : sampleBrief();
+      },
+    });
+    assert.equal(response.ok, true);
+    assert.equal(calls, 2);
+  });
+
+  it("retries once after a provider or missing-tool error", async () => {
+    let calls = 0;
+    const response = await generateMarketBrief(sampleInput({ price: 2366.2 }), {
+      skipCache: true,
+      callModel: async () => {
+        calls += 1;
+        if (calls === 1) throw new Error("AI provider returned malformed structured output.");
+        return sampleBrief();
       },
     });
     assert.equal(response.ok, true);

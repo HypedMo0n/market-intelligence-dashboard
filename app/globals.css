@@ -4,6 +4,26 @@
 
 :root {
   color-scheme: dark;
+  --color-bg: #070707;
+  --color-surface: #0f0f0f;
+  --color-card: #111111;
+  --color-card-hover: #161616;
+  --color-border: #1e1e1e;
+  --color-border-bright: #2e2e2e;
+  --color-fg: #d4d4d4;
+  --color-fg-dim: #666666;
+  --color-fg-dimmer: #3a3a3a;
+  --color-green: #00e676;
+  --color-green-dim: #00e67620;
+  --color-amber: #f59e0b;
+  --color-amber-dim: #f59e0b18;
+  --color-red: #ff4d4d;
+  --color-red-dim: #ff4d4d18;
+  --color-cyan: #00bcd4;
+  --color-cyan-dim: #00bcd418;
+  --font-display: "Arial Narrow", "Barlow Condensed", "Roboto Condensed", Arial, sans-serif;
+  --font-body: Barlow, Inter, "Segoe UI", Arial, sans-serif;
+  --font-mono: "DM Mono", "Cascadia Mono", Consolas, monospace;
 }
 
 * {
@@ -14,7 +34,10 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background: #0b1220;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
 }
 
 button,
@@ -26,6 +49,45 @@ input {
 button:focus-visible,
 textarea:focus-visible,
 input:focus-visible {
-  outline: 2px solid #c9a227;
+  outline: 2px solid var(--color-green);
   outline-offset: 2px;
+}
+
+::selection {
+  background: #00e67630;
+  color: var(--color-green);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-bright);
+}
+
+@keyframes terminalPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes fadeInTerminal {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
