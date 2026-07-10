@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
-import { callOpenAiJson, getOpenAiModel, hasOpenAiConfig } from "../providers/openai.ts";
+import { callAiJsonWithFallback, getPrimaryAiModel, hasAiConfig } from "../providers/aiProviders.ts";
 
 export type MarketBriefRequest = {
-  instrument: "XAUUSD";
+  instrument: string;
   mt5: {
     price: number;
     trend: string;
@@ -79,7 +79,7 @@ const cache = new Map<string, { expiresAt: number; response: MarketBriefResponse
 
 export function validateMarketBriefRequest(value: unknown): { ok: true; input: MarketBriefRequest } | { ok: false; error: string } {
   if (!isRecord(value)) return { ok: false, error: "Request body must be an object." };
-  if (value.instrument !== "XAUUSD") return { ok: false, error: "Only XAUUSD market briefs are supported right now." };
+  if (typeof value.instrument !== "string" || !value.instrument.trim()) return { ok: false, error: "instrument must be a non-empty string." };
   if (!isRecord(value.mt5)) return { ok: false, error: "Missing mt5 facts." };
   if (!isRecord(value.fred)) return { ok: false, error: "Missing FRED facts." };
   if (!isRecord(value.marketStatus)) return { ok: false, error: "Missing deterministic market status." };
@@ -121,7 +121,7 @@ export async function generateMarketBrief(input: MarketBriefRequest, options: Ge
     return { ...cached.response, cached: true };
   }
 
-  if (!hasOpenAiConfig() && !options.callModel) {
+  if (!hasAiConfig() && !options.callModel) {
     return buildFallbackResponse("AI explanation unavailable. Rule-based market context is still available.", false);
   }
 
@@ -131,7 +131,7 @@ export async function generateMarketBrief(input: MarketBriefRequest, options: Ge
       ok: true,
       fallback: false,
       cached: false,
-      model: getOpenAiModel(),
+      model: getPrimaryAiModel(),
       brief: response,
     };
     cache.set(cacheKey, { expiresAt: Date.now() + ttl, response: wrapped });
@@ -148,21 +148,27 @@ export async function callModelWithRetry(input: MarketBriefRequest, options: Gen
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
     const strictRetry = attempt === 1;
-    const raw = options.callModel
-      ? await options.callModel(strictRetry ? strictSystem : system, userContent, strictRetry)
-      : await callOpenAiJson<unknown>({
-          system: strictRetry ? strictSystem : system,
-          userContent,
-          maxTokens: MARKET_BRIEF_MAX_TOKENS,
-          temperature: MARKET_BRIEF_TEMPERATURE,
-          timeoutMs: 15_000,
-          stripUnsafe: false,
-        });
+    let raw: unknown;
+    try {
+      raw = options.callModel
+        ? await options.callModel(strictRetry ? strictSystem : system, userContent, strictRetry)
+        : (await callAiJsonWithFallback<unknown>({
+            system: strictRetry ? strictSystem : system,
+            userContent,
+            maxTokens: MARKET_BRIEF_MAX_TOKENS,
+            temperature: MARKET_BRIEF_TEMPERATURE,
+            timeoutMs: 15_000,
+            stripUnsafe: false,
+          })).value;
+    } catch {
+      if (!strictRetry) continue;
+      throw new Error("AI market brief failed validation after retry.");
+    }
     const parsed = validateMarketBriefOutput(raw, input);
     if (parsed.ok) return parsed.brief;
   }
 
-  throw new Error("OpenAI market brief failed validation after retry.");
+  throw new Error("AI market brief failed validation after retry.");
 }
 
 export function validateMarketBriefOutput(value: unknown, input: MarketBriefRequest): { ok: true; brief: MarketBrief } | { ok: false; error: string } {
@@ -197,7 +203,7 @@ export function buildFallbackResponse(message: string, cached: boolean): MarketB
     ok: false,
     fallback: true,
     cached,
-    model: getOpenAiModel(),
+    model: getPrimaryAiModel(),
     brief: {
       headline: message,
       whatIsHappening: message,
@@ -309,7 +315,7 @@ function isStringArray(value: unknown): value is string[] {
 }
 
 export const marketBriefRuntimeConfig = {
-  defaultModel: "gpt-4o-mini",
+  defaultModel: "gemini-1.5-flash",
   temperature: MARKET_BRIEF_TEMPERATURE,
   maxTokens: MARKET_BRIEF_MAX_TOKENS,
   timeoutMs: 15_000,

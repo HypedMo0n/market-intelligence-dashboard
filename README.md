@@ -1,6 +1,6 @@
-# AI Trading Intelligence Platform
+# Your Trading Intelligence
 
-An educational market-intelligence dashboard for retail traders. It explains what is happening across selected instruments using MT5 market data, macro context, news-risk framing, and plain-English guidance.
+An educational market-intelligence dashboard for personal use. It explains what is happening across selected instruments using MT5 market data, Twelve Data asset lookup, macro context, provider status, news-risk framing, and plain-English guidance.
 
 This product does not execute trades, automate trading, or produce guaranteed buy/sell signals.
 
@@ -15,7 +15,7 @@ MT5 terminal on local machine
   -> Next.js dashboard
 ```
 
-Macro context is served by `POST /api/macro-scan`. It uses a local educational fallback by default, so no AI API key is required. If you later configure `OPENAI_API_KEY` and `OPENAI_MODEL`, the route can use OpenAI for richer macro explanations.
+Macro context is served by `POST /api/macro-scan`. It uses a local educational fallback by default, so no AI API key is required. If you later configure `GEMINI_API_KEY` or `GROQ_API_KEY`, the route can use Gemini first and Groq as fallback for richer macro explanations.
 
 ## Active Structure
 
@@ -65,8 +65,9 @@ SUPABASE_SERVICE_ROLE_KEY=
 Optional AI provider:
 
 ```text
-OPENAI_API_KEY=
-OPENAI_MODEL=
+GEMINI_API_KEY=
+GROQ_API_KEY=
+TWELVE_DATA_API_KEY=
 ```
 
 Optional bridge target:
@@ -103,27 +104,28 @@ $env:MT5_INGEST_SECRET="<same secret as Next/Vercel>"
 python scripts/mt5_bridge.py
 ```
 
-The bridge reads:
+The MT5 bridge remains the primary live market-data source for:
 
 - `XAUUSD`
 - `XAGUSD`
-- `EURUSD`
-- `AUDUSD`
-- `GBPJPY`
 
 Each snapshot includes price, timestamp, trend, market structure, volatility, support, resistance, recent high, recent low, liquidity zones, and notes.
 
-The bridge posts securely to `/api/mt5-ingest`. It verifies the configured demo account and contains no order-placement code.
+The bridge posts securely to `/api/mt5-ingest` and contains no order-placement code.
 
 ## API Routes
 
 - `POST /api/macro-scan`: returns macro overview and per-instrument educational context. Works without an AI key via local fallback.
 - `POST /api/mt5-ingest`: receives MT5 bridge snapshots after secret verification and stores them in Supabase.
 - `GET /api/mt5-latest`: returns the latest snapshot per instrument for the dashboard.
+- `GET /api/assets/search`: searches MT5-priority symbols and Twelve Data-supported assets.
+- `GET /api/assets/market-data`: fetches Twelve Data quote context for non-MT5 assets.
+- `GET /api/data-status`: returns provider configuration and fallback status without secrets.
 
 ## Dashboard Behavior
 
-- MT5 data is the primary chart source.
+- MT5 data is the primary chart source for XAUUSD and XAGUSD.
+- Twelve Data is used for searched assets outside XAUUSD/XAGUSD.
 - The dashboard auto-refreshes `/api/mt5-latest`.
 - Manual MT5 JSON paste remains available as a backup.
 - Screenshot upload analysis has been archived and removed from the active workflow.
@@ -144,7 +146,7 @@ The numerical score is kept internally by `getMarketStatus()` and is not the pri
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `SUPABASE_SERVICE_ROLE_KEY`
-   - optionally `OPENAI_API_KEY` and `OPENAI_MODEL`
+   - optionally `GEMINI_API_KEY`, `GROQ_API_KEY`, and `TWELVE_DATA_API_KEY`
 4. Deploy.
 5. Set `VERCEL_APP_URL` on the local MT5 bridge machine to your Vercel URL.
 
