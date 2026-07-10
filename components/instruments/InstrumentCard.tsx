@@ -2,8 +2,7 @@
 
 import { AlertCircle } from "lucide-react";
 import { Explain } from "@/components/common/MetricChip";
-import type { InstrumentMeta } from "@/lib/market-analysis/instruments";
-import { STATIC_DRIVERS } from "@/lib/market-analysis/instruments";
+import { getStaticDriver, type InstrumentMeta } from "@/lib/market-analysis/instruments";
 import type { ChartRead, MacroInstrument } from "@/lib/market-analysis/types";
 import { getMarketStatus } from "@/lib/scoring/marketStatus";
 import { C } from "@/lib/theme";
@@ -53,7 +52,7 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
 
       <p style={{ color: C.textDim }} className="text-sm">
         <span style={{ color: C.text }}>Main driver: </span>
-        {macro?.driver || STATIC_DRIVERS[instMeta.key]}
+        {macro?.driver || getStaticDriver(instMeta.key)}
       </p>
 
       {macro?.newsRisk?.level && macro.newsRisk.level !== "none" && (
