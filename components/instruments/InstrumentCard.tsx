@@ -2,6 +2,7 @@
 
 import { AlertCircle } from "lucide-react";
 import { Explain } from "@/components/common/MetricChip";
+import { InstrumentChart, type BiasMarker, type Candle } from "@/components/InstrumentChart";
 import { getStaticDriver, type InstrumentMeta } from "@/lib/market-analysis/instruments";
 import type { ChartRead, MacroInstrument } from "@/lib/market-analysis/types";
 import { getMarketStatus } from "@/lib/scoring/marketStatus";
@@ -11,9 +12,14 @@ type InstrumentCardProps = {
   instMeta: InstrumentMeta;
   macro?: MacroInstrument;
   mt5?: ChartRead;
+  candles?: Candle[];
+  biasMarkers?: BiasMarker[];
+  chartLoading?: boolean;
+  chartError?: string | null;
+  chartDisconnected?: boolean;
 };
 
-export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardProps) {
+export default function InstrumentCard({ instMeta, macro, mt5, candles = [], biasMarkers = [], chartLoading, chartError, chartDisconnected }: InstrumentCardProps) {
   const macroBias = macro?.macroBias || macro?.bias || "neutral";
   const chartBias = mt5?.trend === "up" ? "bullish" : mt5?.trend === "down" ? "bearish" : "neutral";
   const marketStatus = getMarketStatus(macro, mt5);
@@ -48,6 +54,19 @@ export default function InstrumentCard({ instMeta, macro, mt5 }: InstrumentCardP
         <Field label="Freshness" value={freshness.label} color={freshness.color} />
         <Field label="Macro bias" value={macroBias} color={biasColor(macroBias)} />
         <Field label="Chart bias" value={chartBias} color={biasColor(chartBias)} />
+      </div>
+
+      <div style={{ borderTop: `1px solid ${C.line}` }} className="pt-3">
+        <span style={{ color: C.gold }} className="text-xs uppercase tracking-wide font-mono flex items-center mb-2">
+          H1 candle chart <Explain id="marketStructure" />
+        </span>
+        <InstrumentChart
+          candles={candles}
+          biasMarkers={biasMarkers}
+          loading={chartLoading}
+          error={chartError}
+          disconnected={chartDisconnected}
+        />
       </div>
 
       <p style={{ color: C.textDim }} className="text-sm">

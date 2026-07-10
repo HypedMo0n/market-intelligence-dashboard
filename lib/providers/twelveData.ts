@@ -1,3 +1,5 @@
+import { createHash } from "node:crypto";
+import type { Candle } from "../market-analysis/candles.ts";
 import { normalizeSymbol } from "../market-analysis/providerRouting.ts";
 
 export type TwelveDataAsset = {
@@ -24,8 +26,10 @@ export type TwelveDataQuote = {
 
 const SEARCH_CACHE_TTL_MS = 10 * 60 * 1000;
 const QUOTE_CACHE_TTL_MS = 60 * 1000;
+const CANDLE_CACHE_TTL_MS = 5 * 60 * 1000;
 const searchCache = new Map<string, { expiresAt: number; value: TwelveDataAsset[] }>();
 const quoteCache = new Map<string, { expiresAt: number; value: TwelveDataQuote }>();
+const candleCache = new Map<string, { expiresAt: number; value: Candle[] }>();
 
 const LOCAL_ALIASES: TwelveDataAsset[] = [
   { symbol: "EURUSD", name: "Euro / US Dollar", assetClass: "forex", provider: "Twelve Data" },
@@ -97,11 +101,38 @@ export async function fetchTwelveDataQuote(symbol: string, fetchImpl: typeof fet
   return quote;
 }
 
+export async function fetchTwelveDataCandles(symbol: string, interval = "1h", lookback = 120, fetchImpl: typeof fetch = fetch): Promise<{ status: "live" | "cached" | "unavailable"; candles: Candle[]; error?: string }> {
+  const normalized = normalizeSymbol(symbol);
+  const cacheKey = hashCandleCacheKey({ symbol: normalized, interval, lookback });
+  const cached = candleCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) return { status: "cached", candles: cached.value };
+
+  const apiKey = process.env.TWELVE_DATA_API_KEY;
+  if (!apiKey) {
+    return { status: "unavailable", candles: [], error: "Twelve Data is not configured. Set TWELVE_DATA_API_KEY server-side." };
+  }
+
+  const providerSymbol = formatTwelveDataSymbol(symbol);
+  const providerInterval = normalizeTwelveDataInterval(interval);
+  const outputSize = Math.max(1, Math.min(5000, Math.round(lookback)));
+  const url = `https://api.twelvedata.com/time_series?symbol=${encodeURIComponent(providerSymbol)}&interval=${encodeURIComponent(providerInterval)}&outputsize=${outputSize}&apikey=${encodeURIComponent(apiKey)}`;
+  const response = await fetchWithTimeout(url, fetchImpl);
+  if (!response.ok) return { status: "unavailable", candles: [], error: "Twelve Data candle request failed." };
+  const data = await response.json();
+  if (data.status === "error") return { status: "unavailable", candles: [], error: data.message || "Twelve Data returned an error." };
+
+  const candles = Array.isArray(data.values)
+    ? data.values.map(normalizeTimeSeriesCandle).filter((candle: Candle | null): candle is Candle => Boolean(candle)).reverse()
+    : [];
+  candleCache.set(cacheKey, { expiresAt: Date.now() + CANDLE_CACHE_TTL_MS, value: candles });
+  return { status: "live", candles };
+}
+
 export function getTwelveDataStatus() {
   return {
     configured: hasTwelveDataConfig(),
     provider: "Twelve Data",
-    cacheEntries: searchCache.size + quoteCache.size,
+    cacheEntries: searchCache.size + quoteCache.size + candleCache.size,
   };
 }
 
@@ -153,3 +184,37 @@ function numberOrNull(value: unknown) {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
+function normalizeTimeSeriesCandle(item: Record<string, unknown>): Candle | null {
+  const time = typeof item.datetime === "string" ? item.datetime : "";
+  const open = numberOrNull(item.open);
+  const high = numberOrNull(item.high);
+  const low = numberOrNull(item.low);
+  const close = numberOrNull(item.close);
+  if (!time || open === null || high === null || low === null || close === null) return null;
+  return { time: normalizeCandleTime(time), open, high, low, close };
+}
+
+function normalizeCandleTime(time: string) {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(time)) return `${time}T00:00:00Z`;
+  if (time.endsWith("Z")) return time;
+  return `${time.replace(" ", "T")}Z`;
+}
+
+function normalizeTwelveDataInterval(interval: string) {
+  const normalized = interval.trim().toLowerCase();
+  if (normalized === "h1" || normalized === "1hour") return "1h";
+  if (normalized === "d1" || normalized === "1d") return "1day";
+  return normalized || "1h";
+}
+
+function formatTwelveDataSymbol(symbol: string) {
+  const raw = symbol.trim().toUpperCase();
+  if (raw.includes("/")) return raw;
+  const normalized = normalizeSymbol(symbol);
+  if (/^[A-Z]{6}$/.test(normalized)) return `${normalized.slice(0, 3)}/${normalized.slice(3)}`;
+  return raw;
+}
+
+function hashCandleCacheKey(input: { symbol: string; interval: string; lookback: number }) {
+  return createHash("sha256").update(JSON.stringify(input)).digest("hex");
+}

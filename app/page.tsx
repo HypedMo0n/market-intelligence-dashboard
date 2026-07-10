@@ -3,6 +3,7 @@
 import { AlertCircle, CalendarDays, Database, Heart, Newspaper, RefreshCw, Search, Settings, SlidersHorizontal, Star, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import MetricChip from "@/components/common/MetricChip";
+import type { BiasMarker, Candle } from "@/components/InstrumentChart";
 import InstrumentCard from "@/components/instruments/InstrumentCard";
 import UsMacroContext from "@/components/macro/UsMacroContext";
 import { getStaticDriver, INSTRUMENTS, isInstrumentKey, type InstrumentKey, type InstrumentMeta } from "@/lib/market-analysis/instruments";
@@ -72,6 +73,14 @@ type StoredState = {
   favorites?: string[];
 };
 
+type CandleState = {
+  loading: boolean;
+  candles: Candle[];
+  error: string | null;
+  disconnected: boolean;
+  status?: string;
+};
+
 const NAV_ITEMS: Array<{ id: View; label: string }> = [
   { id: "dashboard", label: "Market Scanner" },
   { id: "assets", label: "Assets" },
@@ -122,6 +131,7 @@ export default function TradingIntelligenceDashboard() {
   const [detailTab, setDetailTab] = useState<DetailTab>("overview");
   const [marketBriefs, setMarketBriefs] = useState<Record<string, MarketBriefResponse | null>>({});
   const [briefLoading, setBriefLoading] = useState<Record<string, boolean>>({});
+  const [candleSeries, setCandleSeries] = useState<Record<string, CandleState>>({});
   const [clock, setClock] = useState(() => new Date());
   const briefInFlight = useRef<Set<string>>(new Set());
   const scanRef = useRef<MacroScan | null>(null);
@@ -243,6 +253,60 @@ export default function TradingIntelligenceDashboard() {
       window.clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function fetchCandlesForWatchlist() {
+      await Promise.all(
+        watchlist.map(async (symbol) => {
+          setCandleSeries((current) => ({
+            ...current,
+            [symbol]: {
+              loading: true,
+              candles: current[symbol]?.candles || [],
+              error: null,
+              disconnected: false,
+              status: current[symbol]?.status,
+            },
+          }));
+          try {
+            const response = await fetch(`/api/candles?symbol=${encodeURIComponent(symbol)}&interval=1h&lookback=120`, { cache: "no-store" });
+            const data = await response.json();
+            if (cancelled) return;
+            if (!response.ok) throw new Error(data.error || "Could not fetch candle history.");
+            setCandleSeries((current) => ({
+              ...current,
+              [symbol]: {
+                loading: false,
+                candles: Array.isArray(data.candles) ? data.candles : [],
+                error: data.error || null,
+                disconnected: data.status === "mt5_disconnected",
+                status: data.status,
+              },
+            }));
+          } catch (event) {
+            if (cancelled) return;
+            setCandleSeries((current) => ({
+              ...current,
+              [symbol]: {
+                loading: false,
+                candles: current[symbol]?.candles || [],
+                error: event instanceof Error ? event.message : "Could not fetch candle history.",
+                disconnected: false,
+                status: "unavailable",
+              },
+            }));
+          }
+        }),
+      );
+    }
+    fetchCandlesForWatchlist();
+    const interval = window.setInterval(fetchCandlesForWatchlist, 5 * 60_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(interval);
+    };
+  }, [watchlist]);
 
   const runScan = useCallback(async () => {
     setMacroLoading(true);
@@ -523,6 +587,7 @@ export default function TradingIntelligenceDashboard() {
             favorites={favorites}
             onRemoveFromWatchlist={removeFromWatchlist}
             onToggleFavorite={toggleFavorite}
+            candleSeries={candleSeries}
             onSelect={(key) => {
               setSelectedInstrument(key);
               setAssetSelectionTouched(true);
@@ -679,6 +744,7 @@ function AssetsView({
   favorites,
   onRemoveFromWatchlist,
   onToggleFavorite,
+  candleSeries,
   onSelect,
   onChangeTab,
 }: {
@@ -702,6 +768,7 @@ function AssetsView({
   favorites: string[];
   onRemoveFromWatchlist: (key: string) => void;
   onToggleFavorite: (key: string) => void;
+  candleSeries: Record<string, CandleState>;
   onSelect: (key: InstrumentKey) => void;
   onChangeTab: (tab: DetailTab) => void;
 }) {
@@ -814,6 +881,8 @@ function AssetsView({
             isWatched={watchlist.includes(selected.meta.key)}
             onRemoveFromWatchlist={() => onRemoveFromWatchlist(selected.meta.key)}
             onToggleFavorite={() => onToggleFavorite(selected.meta.key)}
+            candleState={candleSeries[selected.meta.key]}
+            biasMarkers={buildBiasMarkers(selected)}
           />
         )}
       </div>
@@ -835,6 +904,8 @@ function InstrumentDetail({
   isWatched,
   onRemoveFromWatchlist,
   onToggleFavorite,
+  candleState,
+  biasMarkers,
 }: {
   summary: InstrumentSummary;
   detailTab: DetailTab;
@@ -849,6 +920,8 @@ function InstrumentDetail({
   isWatched: boolean;
   onRemoveFromWatchlist: () => void;
   onToggleFavorite: () => void;
+  candleState?: CandleState;
+  biasMarkers: BiasMarker[];
 }) {
   return (
     <section className="flex flex-col gap-4">
@@ -901,6 +974,11 @@ function InstrumentDetail({
             instMeta={summary.meta}
             macro={summary.macro}
             mt5={summary.mt5}
+            candles={candleState?.candles || []}
+            chartLoading={Boolean(candleState?.loading)}
+            chartError={candleState?.error || null}
+            chartDisconnected={Boolean(candleState?.disconnected)}
+            biasMarkers={biasMarkers}
           />
           <div className="flex flex-col gap-4">
             <InfoPanel title="Current Read" text={summary.marketStatus.plainEnglish} />
@@ -1782,6 +1860,12 @@ function biasColor(bias: string) {
   if (bias.startsWith("Bearish")) return C.fall;
   if (bias === "Mixed") return C.amber;
   return C.neutral;
+}
+
+function buildBiasMarkers(summary: InstrumentSummary): BiasMarker[] {
+  const time = summary.mt5?.timestamp || summary.mt5?.createdAt;
+  if (!time || summary.bias === "Unclear") return [];
+  return [{ time, text: summary.bias, color: biasColor(summary.bias) }];
 }
 
 function clarityColor(clarity: string) {

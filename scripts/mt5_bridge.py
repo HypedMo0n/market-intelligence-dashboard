@@ -19,9 +19,10 @@ except ImportError as exc:  # pragma: no cover - only runs on local MT5 machine
     raise SystemExit("MetaTrader5 package is required on the local MT5 machine.") from exc
 
 
-SYMBOLS = ["XAUUSD", "XAGUSD", "EURUSD", "AUDUSD", "GBPJPY"]
+SYMBOLS = ["XAUUSD", "XAGUSD"]
 TIMEFRAME = mt5.TIMEFRAME_H1
 BAR_COUNT = 160
+CANDLE_HISTORY_COUNT = 120
 
 
 @dataclass
@@ -41,6 +42,7 @@ class Snapshot:
     liquidity_zones: str
     notes: str
     candle_may_be_forming: bool
+    candles: list[dict[str, float | str]]
 
 
 def main() -> int:
@@ -73,11 +75,11 @@ def main() -> int:
         if not bool(getattr(terminal, "trade_allowed", False)):
             print("Warning: MT5 terminal AutoTrading/trade_allowed is false. Continuing because this bridge reads data only.", file=sys.stderr)
 
-        login = getattr(account, "login", "unknown")
-        server = getattr(account, "server", "unknown")
-        print(f"Connected MT5 account: login={login}, server={server}")
+        login = int(getattr(account, "login", 0))
+        if login != 4401376:
+            raise SystemExit(f"Connected MT5 account is {login}, expected demo account 4401376.")
         if not is_demo_account(account):
-            print("Warning: connected account does not look like a demo account. Continuing because this bridge reads data only.", file=sys.stderr)
+            raise SystemExit("Connected account does not look like a demo account. Refusing to post snapshots.")
 
         snapshots = []
         for requested_symbol in SYMBOLS:
@@ -176,7 +178,23 @@ def build_snapshot(instrument: str, rates: Any) -> Snapshot:
         liquidity_zones="Potential stop areas may sit near the recent high and low.",
         notes=f"{instrument} is {trend} on H1 with {structure}; volatility is {volatility}.",
         candle_may_be_forming=True,
+        candles=build_candles(bars[-CANDLE_HISTORY_COUNT:]),
     )
+
+
+def build_candles(bars: list[dict[str, Any]]) -> list[dict[str, float | str]]:
+    candles: list[dict[str, float | str]] = []
+    for bar in bars:
+        candles.append(
+            {
+                "time": datetime.fromtimestamp(int(bar["time"]), tz=timezone.utc).isoformat(),
+                "open": round(float(bar["open"]), 5),
+                "high": round(float(bar["high"]), 5),
+                "low": round(float(bar["low"]), 5),
+                "close": round(float(bar["close"]), 5),
+            }
+        )
+    return candles
 
 
 def exponential_average(values: list[float]) -> float:
